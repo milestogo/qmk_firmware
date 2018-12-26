@@ -2,6 +2,17 @@
 ## Project specific files
 #SRC =
 
+ifdef ASTAR
+  CFLAGS=-D ASTAR
+ MCU = atmega32u4
+ SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
+		 avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
+
+else
+ MCU = at90usb1286
+ SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
+endif
+
 F_CPU = 16000000
 ARCH = AVR8
 F_USB = $(F_CPU)
@@ -10,12 +21,10 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), ms_sculpt/8x8_arm)
+ifdef ASTAR
+  BOOTLOADER = caterina
+else
   BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), ms_sculpt/8x8_avr) 
-  BOOTLOADER = 
-  #define STM32_BOOTLOADER_ADDRESS 0x1FFFC800
 endif
 
 
@@ -38,9 +47,11 @@ MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 
 USB = /dev/cu.usbmodem14141
 #LAYOUTS=8x18
-#DEFAULT_FOLDER= handwired/ms_sculpt_mobile/8x18_avr
+DEFAULT_FOLDER=ms_sculpt/mobile 
+
+# upload: build
+# 	$(SCULPT_UPLOAD_COMMAND)
