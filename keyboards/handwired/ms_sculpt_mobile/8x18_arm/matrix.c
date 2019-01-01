@@ -78,6 +78,10 @@ void matrix_scan_user(void) {
 
 void matrix_init(void)
 {
+	// disable JTAG  to enable PB3 and PB4
+  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_DISABLE;
+	//
   // initialize row and col
   unselect_rows();
   init_cols();
@@ -144,48 +148,48 @@ void matrix_print(void){
  */
 //  Modified by milestogo
 static void  init_cols(void){
-  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP); // col1
+  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP);// pin 1, unknown column
   palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP); 
   palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 9, PAL_MODE_INPUT_PULLUP); //col6
-  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP); //col 7
-  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//col 8
+  palSetPadMode(GPIOB, 9, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP); 
+  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//pin
   palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP);// col 11
+  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP);//
   palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP); // col 13
-  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);//col 14
+  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP); // pin 13
+  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);//
   palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP); //col16
-  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); //col17
-  palSetPadMode(GPIOC, 15, PAL_MODE_INPUT_PULLUP);//col18
+  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP); //pin16
+  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); //pin 17
+  palSetPadMode(GPIOC, 15, PAL_MODE_INPUT_PULLUP);//pin 18
 
 }
 
 /* Returns status of switches(1:on, 0:off) */
 //  Modified by milestogo
 static matrix_row_t read_cols(void){
-  return ((palReadPad(GPIOB, 4)==PAL_HIGH) ? 0 : (1<<0))
-    | ((palReadPad(GPIOB, 5)==PAL_HIGH) ? 0 : (1<<1))
-    | ((palReadPad(GPIOB, 6)==PAL_HIGH) ? 0 : (1<<2))
-    | ((palReadPad(GPIOB, 7)==PAL_HIGH) ? 0 : (1<<3))
-    | ((palReadPad(GPIOB, 8)==PAL_HIGH) ? 0 : (1<<4))
-    | ((palReadPad(GPIOB, 9)==PAL_HIGH) ? 0 : (1<<5))
-    | ((palReadPad(GPIOB, 13)==PAL_HIGH) ? 0 : (1<<6))
-    | ((palReadPad(GPIOB, 11)==PAL_HIGH) ? 0 : (1<<7))
-    | ((palReadPad(GPIOB, 10)==PAL_HIGH) ? 0 : (1<<8))
-    | ((palReadPad(GPIOB, 1)==PAL_HIGH) ? 0 : (1<<9))
-    | ((palReadPad(GPIOB, 0)==PAL_HIGH) ? 0 : (1<<10))
-    | ((palReadPad(GPIOA, 7)==PAL_HIGH) ? 0 : (1<<11))
-    | ((palReadPad(GPIOA, 6)==PAL_HIGH) ? 0 : (1<<12))
-    | ((palReadPad(GPIOA, 3)==PAL_HIGH) ? 0 : (1<<13))
-    | ((palReadPad(GPIOA, 2)==PAL_HIGH) ? 0 : (1<<14))
-    | ((palReadPad(GPIOA, 1)==PAL_HIGH) ? 0 : (1<<15))
-    | ((palReadPad(GPIOA, 0)==PAL_HIGH) ? 0 : (1<<16))
-    | ((palReadPad(GPIOC, 15)==PAL_HIGH) ? 0 : (1<<17));
+return ((palReadPad(GPIOB, 4)==PAL_HIGH) ? 0 : (1<<17))
+    | ((palReadPad(GPIOB, 5)==PAL_HIGH) ? 0 : (1<<16))
+    | ((palReadPad(GPIOB, 6)==PAL_HIGH) ? 0 : (1<<15))
+    | ((palReadPad(GPIOB, 7)==PAL_HIGH) ? 0 : (1<<14))
+    | ((palReadPad(GPIOB, 8)==PAL_HIGH) ? 0 : (1<<13))
+    | ((palReadPad(GPIOB, 9)==PAL_HIGH) ? 0 : (1<<12))
+    | ((palReadPad(GPIOB, 13)==PAL_HIGH) ? 0 : (1<<11))
+    | ((palReadPad(GPIOB, 11)==PAL_HIGH) ? 0 : (1<<10))
+    | ((palReadPad(GPIOB, 10)==PAL_HIGH) ? 0 : (1<<9))
+    | ((palReadPad(GPIOB, 1)==PAL_HIGH) ? 0 : (1<<8))
+    | ((palReadPad(GPIOB, 0)==PAL_HIGH) ? 0 : (1<<7))
+    | ((palReadPad(GPIOA, 7)==PAL_HIGH) ? 0 : (1<<6))
+    | ((palReadPad(GPIOA, 6)==PAL_HIGH) ? 0 : (1<<5))
+    | ((palReadPad(GPIOA, 3)==PAL_HIGH) ? 0 : (1<<4))
+    | ((palReadPad(GPIOA, 2)==PAL_HIGH) ? 0 : (1<<3))
+    | ((palReadPad(GPIOA, 1)==PAL_HIGH) ? 0 : (1<<2))
+    | ((palReadPad(GPIOA, 0)==PAL_HIGH) ? 0 : (1<<1))
+    | ((palReadPad(GPIOC, 15)==PAL_HIGH) ? 0 : (1<<0));
 }
 
 /* Row pin configuration
@@ -196,8 +200,8 @@ static void unselect_rows(void){
   palSetPadMode(GPIOA, 8, PAL_MODE_INPUT);
   palSetPadMode(GPIOA, 9, PAL_MODE_INPUT);
   palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 11, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 12, PAL_MODE_INPUT);
+  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT);
+  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
   palSetPadMode(GPIOA, 15, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 3, PAL_MODE_INPUT);
 }
@@ -206,37 +210,37 @@ static void unselect_rows(void){
 static void select_row(uint8_t row){
   (void)row;
   switch (row) {
-    case 0:
+   case 7: 
       palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
       palClearPad(GPIOB, 15);
       break;
-    case 1:
+    case 6:
       palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL);
       palClearPad(GPIOA, 8);
       break;
-    case 2:
+    case 5:
       palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
       palClearPad(GPIOA, 9);
       break;
-    case 3:
+    case 4:
       palSetPadMode(GPIOA, 10, PAL_MODE_OUTPUT_PUSHPULL);
       palClearPad(GPIOA, 10);
       break;
-    case 4:
-      palSetPadMode(GPIOA, 11, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 11);
+    case 3:
+      palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
+      palClearPad(GPIOA, 4);
       break;
-    case 5:
-      palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 12);
+    case 2:
+      palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
+      palClearPad(GPIOB, 14);
       break;
-    case 6:
-      palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL);
+    case 1:
+      palSetPadMode(GPIOA, 15,PAL_MODE_OUTPUT_PUSHPULL);
       palClearPad(GPIOA, 15);
       break;
-    case 7:
+    case 0:
       palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB 3);
+      palClearPad(GPIOB, 3);
       break;
   }
 }

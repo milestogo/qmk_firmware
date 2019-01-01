@@ -11,7 +11,7 @@ SRC =	matrix.c \
 OPT_DEFS =
 MCU_LDSCRIPT = STM32F103x8
 BOARD = GENERIC_STM32_F103
-
+CUSTOM_MATRIX = yes    # Custom matrix file
 
 ## chip/board settings
 # the next two should match the directories in

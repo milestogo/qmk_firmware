@@ -1,4 +1,5 @@
 #pragma once
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -26,5 +27,5 @@
 
 /* teensy 2++ on 8x18 pcb */
 #define MATRIX_ROW_PINS { D1,D2, D3, D4, D5, D6,D7,E0} 
-#define MATRIX_COL_PINS { E1, C0, C1, C2, C3, C4, C5, C6, B7, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4}
+#define MATRIX_COL_PINS { E1, C0, C1, C2, C3, C4, B7, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4}
 #define UNUSED_PINS { D0, C7,F5, F6, F7, B4,B5,B6 }

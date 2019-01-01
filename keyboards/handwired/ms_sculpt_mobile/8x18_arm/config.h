@@ -15,10 +15,10 @@
 #define DESCRIPTION "QMK keyboard firmware with ChibiOS"
 
 /* key matrix size */
-//  Modified by Xydane
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 18
 #define DIODE_DIRECTION COL2ROW
+#define MATRIX_HAS_GHOST
 
 // Iso fix for Space Cadet, comment for ANSI layouts
 #define LSPO_KEY KC_8
