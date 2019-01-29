@@ -30,13 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+
 /* Backlighting include */
 /*#define BACKLIGHT_PIN 19
 #define BACKLIGHT_LEVELS 5
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 */
-#endif
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
