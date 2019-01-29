@@ -20,17 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 
-/* define if matrix has ghost */
-#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 //  Modified by Xydane
 #define DEBOUNCE    1
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -43,6 +36,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 */
+#endif
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCING_DELAY 5
+
+/* define if matrix has ghost (lacks anti-ghosting diodes) */
+//#define MATRIX_HAS_GHOST
+
 
 /*
  * Feature disable options
