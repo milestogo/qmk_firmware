@@ -44,7 +44,7 @@ some (spanish?  windows labeled?) units have a different layout
 |   | A  | B  | C  | D   | E   | F   | G    | H    | I    | J     | K    | L      | M    | N     | O    | P      | Q    | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 |    |    |    |  b  |  n  |     |      |   /  | spc  | Right | Down |        | left | ralt  |      |        |      |     |
-| 1 | z  | x  |  c |  v  |  m  |  ,  |   .  |      | ent  |       |      |        |      |       | rsft | lCtl   |   fn |     |
+| 1 | z  | x  |  c |  v  |  m  |  ,  |   .  |      | ent  |       |      |        |      |       | rsft | rCtl   |   fn |     |
 | 2 |ESC | s  | F4 |  g  |  h  |  F6 |      |  ''  | f5   |       |      |        | up   | lalt  |      |        |      |     |
 | 3 | a  |    |    |  f  |  j  |  k  |   l  |   ;  |   \  |       |      |        |      |       |      |        |      | LGUI|
 | 4 |tab | w  | f3 |  t  |  y  |  ]  |  F7  |   [  | Bspc |       |      |        |      |       | lsft |        |      |     |

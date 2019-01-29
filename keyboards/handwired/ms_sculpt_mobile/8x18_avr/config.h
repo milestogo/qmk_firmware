@@ -26,6 +26,9 @@
 
 
 /* teensy 2++ on 8x18 pcb */
-#define MATRIX_ROW_PINS { D1,D2, D3, D4, D5, D6,D7,E0} 
-#define MATRIX_COL_PINS { E1, C0, C1, C2, C3, C4, B7, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4}
+#define MATRIX_ROW_PINS { E0, D7, D6, D5, D4, D3, D2, D1 } 
+//#define MATRIX_ROW_PINS { D1,D2, D3, D4, D5, D6,D7,E0} 
+                          // a  b   c   d   e    f   g   h   i   j  k   l   m   n   o   p    q  r
+#define MATRIX_COL_PINS {   F4, F3, F2, F1, F0, E6, E7, B0, B1, B2, B3, B7, C4, C3, C2, C1, C0, E1}
+//#define MATRIX_COL_PINS { E1, C0, C1, C2, C3, C4, B7, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4}
 #define UNUSED_PINS { D0, C7,F5, F6, F7, B4,B5,B6 }
