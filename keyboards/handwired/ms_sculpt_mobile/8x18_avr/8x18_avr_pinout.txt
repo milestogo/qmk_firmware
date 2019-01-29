@@ -6,9 +6,9 @@ NC		3	D0
 row 1	4	D1
 row 2	5	D2 // real tx pin. 
 row 3	6	D3 // broken out to for rx pin
-row 4	7	D4 // broken out to tx pin on current board. 
+row 4	7	D4 // broken out to tx pin on board rev 0 
 row 5	8	D5
-row 6	9	D6
+NC	9	D6 // was row 6, use for capslock
 row 7	10	D7
 row 8	11	E0
 col 1	12	E1
@@ -17,13 +17,13 @@ col 3	14	C1
 col 4	15	C2
 col 5	16	C3
 col 6	17	C4
-+5 		18	C5
+row 6	18	C5
 GND		19	C6
-NC		20	C7
+NC   	20	C7
 NC		21	F7
 NC		22	F6
 NC		23	F5
-col 18	24	F4 e
+col 18	24	F4 
 col 17	25	F3
 col 16	26	F2
 col 15	27	F1
