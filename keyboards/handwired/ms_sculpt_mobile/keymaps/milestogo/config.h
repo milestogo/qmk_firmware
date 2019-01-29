@@ -1,6 +1,6 @@
 #pragma once
 
-#define USE_BABLPASTE
+//#define USE_BABLPASTE
 
 // Expect to get errors if you comment a feature out and leave it in your keymap.
 

@@ -1,4 +1,3 @@
-#include "babblePaste.h"
 #include QMK_KEYBOARD_H
 
 #define _QWR 0
@@ -183,7 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
-/* If id is in the range of BABL macros, call the babl function */
 /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
 #ifdef USE_BABLPASTE
 
