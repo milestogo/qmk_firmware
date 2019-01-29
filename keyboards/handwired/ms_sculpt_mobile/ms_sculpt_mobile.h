@@ -5,7 +5,7 @@
 #define NNN KC_NO
 
 //US layout, with vol-, vol+, mute in upper right, white Fn keys
-#define LAYOUT_mobile_mac( \
+#define LAYOUT_mobile( \
                 k7Q, k6O, k6P, k6Q, k5O, k5P, k5Q, k7A, k7B, k7C, k7D, k7E, k7F, k1O, k1K, k1L, \
                 k5A, k5K, k5L, k5M, k5N, k5H, k5I, k2A, k2B, k2C, k2D, k5B, k5C, k5J, k2E, \
                 k6R, k6D, k6E, k6F, k7I, k7J, k4A, k4B, k4C, k4D, k3A, k3B, k3C, k3D, \
