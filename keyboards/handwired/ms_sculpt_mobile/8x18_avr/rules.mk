@@ -6,7 +6,6 @@ ifdef ASTAR
  MCU = atmega32u4
  SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
 		 avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
 else
  MCU = at90usb1286
  SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
@@ -25,7 +24,6 @@ ifdef ASTAR
 else
   BOOTLOADER = halfkay
 endif
-
 
 
 # Interrupt driven control endpoint task(+60)
