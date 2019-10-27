@@ -11,6 +11,8 @@ The keyboards are cheap on ebay, travel well, and are just ergo enough.
 In addition to the original handwired build, I've built an 8+18 FFC PCB I hope to sell or open source. 
  to use a BluePill (generic STM32F103C8T6) on an 8x18 board
     make handwired/ms_sculpt_mobile/8x18_arm:mobile
+    then st-flash write ./handwired_ms_sculpt_mobile_8x18_arm_mobile.bin 0x8000000
+
  to use a teensy 2++ 8x18 board
     make handwired/ms_sculpt_mobile/8x18_avr:mobile
  to use the original handwired teensy 2++
