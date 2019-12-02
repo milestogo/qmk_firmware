@@ -5,8 +5,9 @@
 #define _SYM 3
 #define _MOV 4
 #define _TRAN 5
+#define SSYM KC_SPC
 
-#define LAYOUT_local LAYOUT_mobile_es
+#define LAYOUT_local LAYOUT_mobile_XUW
 
 enum layer_keycodes {
 QWR,
@@ -57,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, CDH,\
    KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
    KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,\
-   TT_MOV,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
+   TT_SYM,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
    KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-   KC_LCTL,  KC_LGUI, KC_LALT, KC_FN1, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+   KC_LCTL,  KC_LGUI, KC_LALT, SSYM, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 [_CDH] = LAYOUT_local(\
@@ -98,6 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /*
+
 * |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
 *  -------------------------------------------------------------------------------'
 * |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
@@ -147,6 +149,12 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+ // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
+
   switch (keycode) {
     case QWR:
       if (record->event.pressed) {
@@ -245,7 +253,13 @@ return MACRO_NONE;
 };
 
 
-
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
 
 
 void matrix_init_user(void) {

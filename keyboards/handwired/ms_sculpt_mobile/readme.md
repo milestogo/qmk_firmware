@@ -29,8 +29,7 @@ As I was debugging the matrix, I started to get random failures. Ribbon cable
  connections can get worn. Shave a half millimeter off the end of the ribbon cable & the errors go away.
 
 
-The full original keymap for the Sculpt is 
-
+Liteon model XUA
 |   | A  | B  | C  | D   | E   | F   | G    | H    | I    | J     | K    | L      | M    | N     | O    | P      | Q    | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 | b  | n  | m  | ,   | .   | /   |      |      |      | Caps  |      |        |      |       |      |        |      | Fn  |
@@ -42,7 +41,7 @@ The full original keymap for the Sculpt is
 | 6 | a  | s  | d  | q   | w   | e   | Up   | Left | Down | Right |      |        |      | Space | F1   | F2     | F3   | Tab |
 | 7 | F7 | F8 | F9 | F10 | F11 | F12 |      | f    | r    | t     | z    | x      | c    |       | v    | Enter  | Esc  |     |
 
-some (spanish?  windows labeled?) units have a different layout 
+Liteon model XUW
 |   | A  | B  | C  | D   | E   | F   | G    | H    | I    | J     | K    | L      | M    | N     | O    | P      | Q    | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 |    |    |    |  b  |  n  |     |      |   /  | spc  | Right | Down |        | left | ralt  |      |        |      |     |
@@ -53,6 +52,19 @@ some (spanish?  windows labeled?) units have a different layout
 | 5 | q  |caps|  e |  r  |  u  |  i  |   o  |   p  |      |       |      |        |      |       |      |        |      |     |
 | 6 | 1  | 2  |  3 |  4  |  7  |  8  |   9  |   0  | F10  | F12   |  F11 | PgUp   | mute | vol+  |      |        |      |     |
 | 7 | ~  | F1 | F2 |  5  |  6  |  =  |  F8  |   -  | F9   |       |  Del | PgDn   | home |       |      | lCtl   |      |     |
+
+
+# true iso Spanish keyboard liteon iso layout 29W
+|   | A0 | B1 | C2 | D3  | E4  | F5  | G6   | H7   | I8   | J     | K10  | L      | M12  | N     | O14  | P      | Q16  | R   |
+|:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
+| 0 |   |    |    |     |     |     |      |      |      |       |      |        |      |       |      |        |      |     |
+| 1 |    |Down|Rght|Spc  | m   | n   |      | b    |      |       |      |        |      | Left |AltGr |        |      |     |
+| 2 |    |    |    |     | p   | u   | q    |  r   |  e   | Caps  |      |        |      |       |      |        |      |     |
+| 3 |   |    |    |     |     |     |      |      |      |       |      |  9     |      |       |      |        |      |     |
+| 4 |    |    |    |Enter| ]   |     |      | v    | c    |  x    | z    |        |      |       |      | Rsft   |      |     |
+| 5 |    |    |    | F5  | [   | h   | esc  |  g   |  F4  |  s    |      |        |      |  Up   |Lalt  |        |      |     |
+| 6 |    |    |    |     | ~n  | j   |  a   |  f   |  d   |  <>   |      |        |      |       |      |        |      |     |
+| 7 |    |    |    |Ban  | "   |     |      |      |      |       |      |        |      |       |      | Lsft   |      |     |
 
 
 If you want a speaker, LEDs, etc., you'll need to free up a pin.  I recommend joining columns
