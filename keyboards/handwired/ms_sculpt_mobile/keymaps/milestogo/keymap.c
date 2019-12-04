@@ -1,11 +1,15 @@
 #include QMK_KEYBOARD_H
 
+#ifdef BOARD_GENERIC_STM32_F103
+#include "8x18_arm.h"
+#endif
+
 #define _QWR 0
-#define _CDH 2
-#define _SYM 3
-#define _MOV 4
+#define _CDH 1
+#define _SYM 2
+#define _MOV 3
 #define _TRAN 5
-#define SSYM KC_SPC
+
 
 #define LAYOUT_local LAYOUT_mobile_XUW
 
@@ -30,6 +34,9 @@ TRAN
 #define TT_MOV KC_FN2
 #define TT_NUM MO(_NUM)
 #define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
+#define SSYM LT(_SYM, KC_SPC)
+#define MVTAB LT(_MOV,KC_TAB)
+#define BKSYM LT(_SYM, KC_BSPC)
 
 enum macro_keycodes {
 DHPASTE=1,
@@ -55,24 +62,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_QWR] = LAYOUT_local( \
-   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, CDH,\
+   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
    KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-   KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,\
-   TT_SYM,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
+   MVTAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,\
+   BKSYM,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
    KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-   KC_LCTL,  KC_LGUI, KC_LALT, SSYM, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+   KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
+
 [_CDH] = LAYOUT_local(\
-   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
+   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,    ____,  \
    KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-   KC_TAB,  KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, ____,    ____,   ____,\
+   ____,  KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, ____,    ____,   ____,\
    TT_MOV,  KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT, KC_ENT, KC_2,\
    KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, ____,   KC_1,\
   ____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
 
 ),
-
 
 /*  SYM
 *
@@ -93,12 +100,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYM] = LAYOUT_local(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  M(VIBRK),  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
+  ____,  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
   ____,    KC_EXLM, KC_HASH,  KC_0,  KC_EQL, KC_LCBR,            KC_RCBR,KC_MINS,KC_1,  KC_PLUS,KC_RBRC,  KC_GRV,   ____,  ____,\
   ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,     KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
-/*
+/* MOVE simple version
+
+* |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
+*  -------------------------------------------------------------------------------'
+* |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* ---------------------------------------------------------------------------
+* | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
+*  -------------------------------------------------------------------------------'
+* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
+* --------------------------------------------------------------------------------
+* |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
+* ---------------------------------------------------------------------------------
+* |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
+* ---------------------------------------------------------------------------------
+*/
+
+[_MOV] = LAYOUT_local(\
+  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, KC_UP, ____, ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____,  KC_LEFT, KC_DOWN, KC_RIGHT,  ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
+
+)
+
+/* MOVE babble version version
 
 * |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
 *  -------------------------------------------------------------------------------'
@@ -123,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     B_UNDO,B_CUT, B_COPY, B_PAST, B_PAST,    ____, ____, ____, ____, ____,       ____,  ____,   ____, \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
-*/
+
 
 [_TRAN] = LAYOUT_local(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
@@ -133,6 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 )
+*/
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -140,27 +174,15 @@ const uint16_t PROGMEM fn_actions[] = {
 [2] = ACTION_LAYER_TAP_KEY(_MOV,KC_BSPC)
 };
 
-#ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
+
   return true;
 
   switch (keycode) {
     case QWR:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         layer_off(_CDH);
       }
       return false;
@@ -168,9 +190,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case CDH:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
         layer_on(_CDH);
       }
       return false;
@@ -180,7 +199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_SYM);
       } else {
-		layer_off(_SYM);
+		    layer_off(_SYM);
       }
      return false;
      break;
@@ -255,14 +274,17 @@ return MACRO_NONE;
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
+  //debug_enable=true;
+  //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
 }
 
 
 void matrix_init_user(void) {
+    #ifdef RGB_MATRIX_ENABLE
+    rgblight_setrgb(RGB_GREEN);
+    #endif //RGB_matrix  
 }
 
 void matrix_scan_user(void) {
@@ -271,11 +293,70 @@ void matrix_scan_user(void) {
 
 
 void led_set_user(uint8_t usb_led) {
-
+#ifdef BOARD_GENERIC_STM32_F103
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        LED_ON();
+    } else {
+        LED_OFF();
+    }
+#endif
 }
 
 
 
 
 
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
 
+  uint8_t layer = get_highest_layer(state);
+  switch (layer) {
+      case 0:
+        #ifdef RGBLIGHT_COLOR_LAYER_0
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+        #else
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_init();
+        #endif
+        #endif
+        break;
+      case 1:
+        #ifdef RGBLIGHT_COLOR_LAYER_1
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+        #endif
+        break;
+      case 2:
+        #ifdef RGBLIGHT_COLOR_LAYER_2
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+        #endif
+        break;
+      case 3:
+        #ifdef RGBLIGHT_COLOR_LAYER_3
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+        #endif
+        break;
+      case 4:
+        #ifdef RGBLIGHT_COLOR_LAYER_4
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+        #endif
+        break;
+      case 5:
+        #ifdef RGBLIGHT_COLOR_LAYER_5
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+        #endif
+        break;
+      default:
+        break;
+    }
+
+  return state;
+};
+
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case LT(_MOV, KC_TAB):
+      return TAPPING_TERM /2 ;
+    default:
+      return TAPPING_TERM;
+  }
+}
