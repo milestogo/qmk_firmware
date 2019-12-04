@@ -26,3 +26,6 @@
 //#define BABL_NOBROWSER
 
 // place overrides here
+// #define RGBLIGHT_ENABLE = yes
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLED_NUM 1
