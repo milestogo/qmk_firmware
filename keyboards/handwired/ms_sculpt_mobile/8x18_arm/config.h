@@ -24,3 +24,6 @@
 // Iso fix for Space Cadet, comment for ANSI layouts
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
+
+#define WS2812_DRIVER = bitbang
+#define RGB_DI_PIN A7
