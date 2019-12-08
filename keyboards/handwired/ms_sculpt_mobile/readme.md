@@ -10,22 +10,23 @@ The keyboards are cheap on ebay, travel well, and are just ergo enough.
 
 In addition to the original handwired build, I've built an 8+18 FFC PCB I hope to sell or open source. 
  to use a BluePill (generic STM32F103C8T6) on an 8x18 board
-    make handwired/ms_sculpt_mobile/8x18_arm:mobile
+    make handwired/ms_sculpt_mobile/8x18_arm:default
     then st-flash write ./handwired_ms_sculpt_mobile_8x18_arm_mobile.bin 0x8000000
 
  to use the original handwired teensy 2++
-    make handwired/ms_sculpt_mobile/handwired:mobile
+    make handwired/ms_sculpt_mobile/handwired:default
  to use the ASTAR mini mcu, add ASTAR=1 to the make options in the handwired rules.mk. 
 
 For handwiring:
 If you don't have hot air tools, cut the original ribbon cable sockets off the bluetooth board using a razor.
 The factory sockets allow the cable to be inserted on top or bottom.
-The ribbon cable is 1mm pitch,I used a cheap set of 
-"pitch adapter" boards https://www.amazon.com/Double-Sided-0-4mm-1-0-Adapter-60mmx38mm/dp/B00OK42118 to handwire. 
+The ribbon cable is 1mm pitch. I used a cheap set of 
+"pitch adapter" boards https://www.amazon.com/Double-Sided-0-4mm-1-0-Adapter-60mmx38mm/dp/B00OK42118. 
 
 As I was debugging the matrix, I started to get random failures. Ribbon cable
  connections can get worn. Shave a half millimeter off the end of the ribbon cable & the errors go away.
 
+There are multiple hardware versions, each with a different matrix. 
 
 Liteon model XUA
 |   | A  | B  | C  | D   | E   | F   | G    | H    | I    | J     | K    | L      | M    | N     | O    | P      | Q    | R   |
@@ -52,7 +53,7 @@ Liteon model XUW
 | 7 | ~  | F1 | F2 |  5  |  6  |  =  |  F8  |   -  | F9   |       |  Del | PgDn   | home |       |      | lCtl   |      |     |
 
 
-# true iso Spanish keyboard liteon iso layout 29W
+iso Spanish keyboard liteon 29W
 |   | A0 | B1 | C2 | D3  | E4  | F5  | G6   | H7   | I8   | J     | K10  | L      | M12  | N     | O14  | P      | Q16  | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 |   |    |    |     |     |     |      |      |      |       |      |        |      |       |      |        |      |     |
@@ -65,13 +66,9 @@ Liteon model XUW
 | 7 |    |    |    |Ban  | "   |     |      |      |      |       |      |        |      |       |      | Lsft   |      |     |
 
 
-If you want a speaker, LEDs, etc., you'll need to free up a pin.  I recommend joining columns
-R and L to the same pin.
 
-My method for discovering the matrix was to set up a LAYOUT macro that included all pins.
-See MATRIX_TESTING_LAYOUT if you need it. Then set up a keymap that has all printable symbols
-in the first 4 rows. test each key & record output. Then switch the printable symbols to the
-bottom 4 rows & repeat. This was enough to show the matrix.
+My method for discovering the matrix was to set up a keymap that has all printable symbols
+in all rows. Load the matrix keymap, start hid_listen, fill in the blanks. 
 
 
 Huge thanks to the bluepill controller work of [FPazos](https://github.com/fpazos), and the original [KC64 of Xydane](https://github.com/Xydane/qmk_firmware). I've shamelessly copied from their work. 

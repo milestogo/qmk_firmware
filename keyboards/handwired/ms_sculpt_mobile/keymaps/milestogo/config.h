@@ -41,3 +41,4 @@
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING
 //#define PERMISSIVE_HOLD
+#define RAW_ENABLE

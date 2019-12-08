@@ -2,8 +2,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6464
+#define VENDOR_ID     0xFEED
+#define PRODUCT_ID    0x01ed
+//  0x6464
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c works */
@@ -25,5 +26,5 @@
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
 
-#define WS2812_DRIVER = bitbang
-#define RGB_DI_PIN A7
+// bitbanged RGB
+#define RGB_DI_PIN B9
