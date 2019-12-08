@@ -3,14 +3,14 @@ SRC =	matrix.c \
 	    led.c
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
-#OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
-#MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
-#BOARD = GENERIC_STM32_F103
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
+MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
+BOARD = GENERIC_STM32_F103
 
 # GENERIC STM32F103C8T6 board - no bootloader (programmer over serial or SWD) //  Modified by Xydane
-OPT_DEFS =
-MCU_LDSCRIPT = STM32F103x8
-BOARD = GENERIC_STM32_F103
+#OPT_DEFS =
+#MCU_LDSCRIPT = STM32F103x8
+#BOARD = GENERIC_STM32_F103
 CUSTOM_MATRIX = yes    # Custom matrix file
 
 ## chip/board settings
@@ -40,4 +40,4 @@ ARMV = 7
 # http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
 # This also requires a patch to chibios:
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
-#STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
+##STM32_BOOTLOADER_ADDRESS = 0x1FFFC800

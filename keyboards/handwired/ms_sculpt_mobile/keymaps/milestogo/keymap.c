@@ -4,6 +4,13 @@
 #include "8x18_arm.h"
 #endif
 
+#ifdef RAW_ENABLE
+#include "raw_hid.h"
+#endif
+
+#include "virtser.h"
+
+#include <print.h>
 #define _QWR 0
 #define _CDH 1
 #define _SYM 2
@@ -176,9 +183,6 @@ const uint16_t PROGMEM fn_actions[] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- // If console is enabled, it will print the matrix position and status of each key pressed
-
-  return true;
 
   switch (keycode) {
     case QWR:
@@ -274,7 +278,7 @@ return MACRO_NONE;
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  //debug_enable=true;
+  debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
@@ -287,8 +291,9 @@ void matrix_init_user(void) {
     #endif //RGB_matrix  
 }
 
-void matrix_scan_user(void) {
 
+void matrix_scan_user(void) {
+  
 }
 
 
@@ -315,9 +320,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         #ifdef RGBLIGHT_COLOR_LAYER_0
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
         #else
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_init();
-        #endif
+          #ifdef RGBLIGHT_ENABLE
+            rgblight_init();
+          #endif
         #endif
         break;
       case 1:
@@ -346,12 +351,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         #endif
         break;
       default:
-        break;
+       break;
     }
-
+    #ifdef VIRTSER_ENABLE
+          virtser_send('l'); // ascii 0 is 48
+            virtser_send(layer + 48); // ascii 0 is 48
+            virtser_send(' '); // space
+    #endif
   return state;
 };
 
+// custom tapping term lengths. 
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case LT(_MOV, KC_TAB):
@@ -360,3 +370,171 @@ uint16_t get_tapping_term(uint16_t keycode) {
       return TAPPING_TERM;
   }
 }
+
+
+
+#ifdef VIRTSER_ENABLE
+uint8_t ser_rgbval[18] ; //ascii string 
+
+uint8_t ser_cmd_started =0 ; // are we in process
+uint8_t ser_rgb_bytes = 0 ; // exit process after this many bytes. 
+
+
+void virtser_recv(uint8_t serIn) 
+{
+ 
+  if (1 == ser_cmd_started) {
+    if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
+        if (ser_rgb_bytes <8) {
+        ser_rgbval[ser_rgb_bytes] = serIn;
+        ser_rgb_bytes++;
+         virtser_send(serIn);
+      //   virtser_send('|');
+      } else {
+          ser_cmd_started =0 ;
+          ser_rgbval[ser_rgb_bytes] = serIn;
+          virtser_send(serIn);
+          virtser_send('|');
+          rgblight_setrgb( // todo - find the function for tuple to int that already exists // BUG, not checking for 0-255
+            (ser_rgbval[0] -'0')*100 + (ser_rgbval[1] -'0')*10 + (ser_rgbval[2] -'0' ),
+            (ser_rgbval[3] -'0')*100 + (ser_rgbval[4] -'0')*10 + (ser_rgbval[5] -'0' ),
+            (ser_rgbval[6] -'0')*100 + (ser_rgbval[7] -'0')*10 + (ser_rgbval[8] -'0' ) );
+      }
+    }
+  } else {
+
+    switch (serIn) {
+     case 'c': { // color switch
+        ser_cmd_started=1;
+        ser_rgb_bytes=0;
+         virtser_send(serIn);
+        break;
+      }
+      case 'r': {//red
+       rgblight_setrgb(RGB_RED);
+       break;
+      } 
+      case 'g': {
+         rgblight_setrgb(RGB_GREEN);
+         break;
+      } 
+      case 'b': { // color switch
+         rgblight_setrgb(RGB_BLUE);
+         break;
+      } 
+       case 'w': { // color switch
+         rgblight_setrgb(RGB_WHITE);
+         break;
+      } 
+       case 'o': { // color black/off
+         rgblight_setrgb(0,0,0);
+         break;
+      } 
+      case 'T': { // toggle
+         rgblight_toggle();
+         break;
+      } 
+        case 'P': { // 
+         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
+         break;
+      } 
+        case 'S': { // 
+         rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+         break;
+      } 
+        case 'U': { // 
+         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+         break;
+      } 
+      default: {
+        virtser_send(serIn);
+        break;
+      }
+    }
+  }
+
+}
+     
+#endif
+
+
+#ifdef RAW_ENABLE
+
+void raw_hid_receive( uint8_t *data, uint8_t length )
+{
+//print("enterd hid");
+ // uint8_t *reportID = &(data[0]);
+  //uint8_t *command_id = &(data[1]);
+ // uint8_t *command_data = &(data[2]);
+/*
+  uint8_t *red =&(data[3]);
+  uint8_t *blue =&(data[4]);
+  uint8_t *green =&(data[5]);
+*/
+/* 
+// Blink(1) APIcommands 
+  https://github.com/todbot/blink1/blob/master/hardware/firmware_mk2/main.c
+
+Copyright (c) ThingM, 2012-2018
+'blink(1)' is a trademark of ThingM Corporation
+LICENSE:  
+Creative Commons - Attribution - ShareAlike 3.0 
+http://creativecommons.org/licenses/by-sa/3.0/
+
+// Available commands in blink(1):
+//    - Fade to RGB color       format: { 1, 'c', r,g,b,     th,tl, ledn }
+//    - Set RGB color now       format: { 1, 'n', r,g,b,       0,0, ledn } (*)
+//    - Read current RGB color  format: { 1, 'r', n,0,0,       0,0, ledn } (2)
+//    - Serverdown tickle/off   format: { 1, 'D', {1/0}, th,tl,  {1/0},sp,ep } (*)
+//    - PlayLoop                format: { 1, 'p', on,sp,ep,c,    0, 0 } (2)
+//    - Playstate readback      format: { 1, 'S', 0,0,0,       0,0, 0 } (2)
+//    - Set color pattern line  format: { 1, 'P', r,g,b,     th,tl, p }
+//    - Save color patterns     format: { 1, 'W', 0,0,0,       0,0, 0 } (2)
+//    - read color pattern line format: { 1, 'R', 0,0,0,       0,0, p }
+//    - Set ledn                format: { 1, 'l', n,0,0,       0,0, 0 } (2+)
+//    - Read EEPROM location    format: { 1, 'e', ad,0,0,      0,0, 0 } (1)
+//    - Write EEPROM location   format: { 1, 'E', ad,v,0,      0,0, 0 } (1)
+//    - Get version             format: { 1, 'v', 0,0,0,       0,0, 0 }
+//    - Test command            format: { 1, '!', 0,0,0,       0,0, 0 }
+*/
+  /*
+// assume result ID = 1? 
+  switch ( *command_id )
+  {
+    case 'n':
+    case 'c':
+    {
+   //   uint8_t ledn = data[7];          // which LED to address
+    //  if ( (ledn > 0)  && (ledn < RGBLED_NUM) ) {
+      //  rgblight_setrgb_at(data[2],data[3],data[4], data[7]);
+     // } else {
+        rgblight_setrgb(0xFF,0xFF,0xFF);
+     // }
+      break;
+    }
+  //    - Get version             format: { 1, 'v', 0,0,0,       0,0, 0 }
+    case 'v':
+    {
+      data[3] = '2' ;
+      data[4] = '7' ;
+      break;
+    }
+
+    default:
+    {
+      // Unhandled message.
+      data[0] = 0;
+      break;
+    }
+  }
+ 
+
+  // Return same buffer with values changed
+  raw_hid_send( data, length );
+  // rgblight_setrgb(0,255,127);
+  */
+}
+
+#endif
+
+
