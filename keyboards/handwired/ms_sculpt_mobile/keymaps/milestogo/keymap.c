@@ -278,7 +278,7 @@ return MACRO_NONE;
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  debug_enable=true;
+  // debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
@@ -374,40 +374,86 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 
 #ifdef VIRTSER_ENABLE
-uint8_t ser_rgbval[18] ; //ascii string 
+uint8_t ser_rgbByte[18] ; //ascii string 
 
 uint8_t ser_cmd_started =0 ; // are we in process
-uint8_t ser_rgb_bytes = 0 ; // exit process after this many bytes. 
-
+uint8_t ser_got_RGBbytes =0 ; // how many bytes we've recived. 
+uint8_t rgb_response[6]; // R, g, b, P1, p2
+uint8_t bs=0; // how many bytes into our rgbBytestring.
 
 void virtser_recv(uint8_t serIn) 
-{
- 
+{ 
+  if ((serIn == 10 ) || (serIn ==  13) || ser_got_RGBbytes >=5) { //reached newline or max digits
+
+    if (ser_cmd_started) {
+      ser_cmd_started =0 ; // end loop at newline
+      virtser_send('|');
+
+      if (ser_got_RGBbytes==3) {
+        rgblight_setrgb( rgb_response[0], rgb_response[1], rgb_response[2]);
+      }
+      if (ser_got_RGBbytes ==4) {
+        if (( rgb_response[3] >=0)  && (rgb_response[3] <= RGBLED_NUM) ) { // is pos1 plausible
+         rgblight_setrgb_at ( rgb_response[0], rgb_response[1], rgb_response[2], rgb_response[3]);
+        }
+      }
+      if (ser_got_RGBbytes ==5) { // are start and end positions plausible? 
+        if ( (rgb_response[4] >0)  && (rgb_response[4] <= RGBLED_NUM) && (rgb_response[4] > rgb_response[3]) && 
+           (rgb_response[3] >=0)  && (rgb_response[3] <= (RGBLED_NUM -1))
+          ) {
+         rgblight_setrgb_range(rgb_response[0], rgb_response[1], rgb_response[2], rgb_response[3], rgb_response[4]);
+        }
+      }
+    } else { // newline outside of command
+      //virtser_send('.');
+    }
+  } 
+
   if (1 == ser_cmd_started) {
-    if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
-        if (ser_rgb_bytes <8) {
-        ser_rgbval[ser_rgb_bytes] = serIn;
-        ser_rgb_bytes++;
-         virtser_send(serIn);
-      //   virtser_send('|');
-      } else {
-          ser_cmd_started =0 ;
-          ser_rgbval[ser_rgb_bytes] = serIn;
-          virtser_send(serIn);
-          virtser_send('|');
-          rgblight_setrgb( // todo - find the function for tuple to int that already exists // BUG, not checking for 0-255
-            (ser_rgbval[0] -'0')*100 + (ser_rgbval[1] -'0')*10 + (ser_rgbval[2] -'0' ),
-            (ser_rgbval[3] -'0')*100 + (ser_rgbval[4] -'0')*10 + (ser_rgbval[5] -'0' ),
-            (ser_rgbval[6] -'0')*100 + (ser_rgbval[7] -'0')*10 + (ser_rgbval[8] -'0' ) );
+    if  (   // it is time to compute a byte
+          ( ( (serIn == ',') || (serIn == '.') ) && (bs > 0) ) || // signal done with the byte. 
+            (bs ==2 ) //or we know this is last.
+        ) { 
+     
+      if ( (serIn <= '9') && (serIn >='0') ) { //3rd asci digit 
+        ser_rgbByte[bs] = serIn;
+        bs++;
+      //  virtser_send(serIn);
+      }
+  
+      if (bs>3) {
+        rgb_response[ser_got_RGBbytes]=255;
+        ser_got_RGBbytes ++;
+      }
+      if (bs==3) {
+          rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*100 + (ser_rgbByte[1] -'0')*10 + (ser_rgbByte[2] -'0' );
+          ser_got_RGBbytes ++;
+      }
+      if (bs ==2 ) {
+         rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*10 +  (ser_rgbByte[1] -'0' );
+         ser_got_RGBbytes ++;
+      }
+      if (bs ==1) {
+         rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0');
+         ser_got_RGBbytes ++;
+      } // {else wipe & start over}
+
+      bs=0;
+    //  virtser_send(ser_got_RGBbytes+'0');
+    } else { // haven't hit a terminal number end
+      if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
+        ser_rgbByte[bs] = serIn;
+        bs++;
+     //    virtser_send(serIn);
       }
     }
   } else {
 
     switch (serIn) {
-     case 'c': { // color switch
+     case 'C': { // color switch
         ser_cmd_started=1;
-        ser_rgb_bytes=0;
-         virtser_send(serIn);
+        ser_got_RGBbytes = bs =0;
+        virtser_send('/');
         break;
       }
       case 'r': {//red
@@ -434,20 +480,20 @@ void virtser_recv(uint8_t serIn)
          rgblight_toggle();
          break;
       } 
-        case 'P': { // 
+      case 'P': { // 
          rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
          break;
       } 
-        case 'S': { // 
+      case 'S': { // 
          rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
          break;
       } 
-        case 'U': { // 
+      case 'U': { // 
          rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
          break;
       } 
       default: {
-        virtser_send(serIn);
+   //     virtser_send(serIn);
         break;
       }
     }
