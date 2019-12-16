@@ -4,10 +4,6 @@
 #include "8x18_arm.h"
 #endif
 
-#ifdef RAW_ENABLE
-#include "raw_hid.h"
-#endif
-
 #include "virtser.h"
 
 #include <print.h>
@@ -44,6 +40,12 @@ TRAN
 #define SSYM LT(_SYM, KC_SPC)
 #define MVTAB LT(_MOV,KC_TAB)
 #define BKSYM LT(_SYM, KC_BSPC)
+#define MV2 LT(MOV, KC_2)
+#define MV3 LT(MOV, KC_3)
+#define MV4 LT(MOV, KC_4)
+#define MV8 LT(MOV, KC_8)
+#define MV9 LT(MOV, KC_9)
+#define MV0 LT(MOV, KC_0)
 
 enum macro_keycodes {
 DHPASTE=1,
@@ -70,20 +72,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWR] = LAYOUT_local( \
    KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
-   KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-   MVTAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,\
-   BKSYM,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
+   KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+   KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
+   BKSYM,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
    KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
    KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
 [_CDH] = LAYOUT_local(\
-   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,    ____,  \
-   KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-   ____,  KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, ____,    ____,   ____,\
-   TT_MOV,  KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT, KC_ENT, KC_2,\
-   KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, ____,   KC_1,\
+   ____,    ____, ____, ____, ____, ____, ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,    ____,  \
+ KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+   ____,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
+   MVTAB,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
+   KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
   ____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
 
 ),
@@ -107,9 +109,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYM] = LAYOUT_local(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
-  ____,    KC_EXLM, KC_HASH,  KC_0,  KC_EQL, KC_LCBR,            KC_RCBR,KC_MINS,KC_1,  KC_PLUS,KC_RBRC,  KC_GRV,   ____,  ____,\
-  ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,     KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
+  ____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
+  ____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
+  ____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, ____,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* MOVE simple version
@@ -264,13 +266,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		 }
 	break;
 
-
-
-
 	default:
     	return MACRO_NONE;
     }
-
 
 return MACRO_NONE;
 };
@@ -286,9 +284,11 @@ void keyboard_post_init_user(void) {
 
 
 void matrix_init_user(void) {
-    #ifdef RGB_MATRIX_ENABLE
+  #ifdef RGB_MATRIX_ENABLE
+  #ifdef RGB_DI_PIN
     rgblight_setrgb(RGB_GREEN);
-    #endif //RGB_matrix  
+  #endif
+  #endif //RGB_matrix  
 }
 
 
@@ -309,11 +309,8 @@ void led_set_user(uint8_t usb_led) {
 
 
 
-
-
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
       case 0:
@@ -321,7 +318,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
         #else
           #ifdef RGBLIGHT_ENABLE
-            rgblight_init();
+          rgblight_init();
           #endif
         #endif
         break;
@@ -354,9 +351,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
        break;
     }
     #ifdef VIRTSER_ENABLE
-          virtser_send('l'); // ascii 0 is 48
-            virtser_send(layer + 48); // ascii 0 is 48
-            virtser_send(' '); // space
+      //virtser_send(layer + 48); // ascii 0 is 48
     #endif
   return state;
 };
@@ -365,7 +360,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case LT(_MOV, KC_TAB):
-      return TAPPING_TERM /2 ;
+      return TAPPING_TERM *2 ;
     default:
       return TAPPING_TERM;
   }
@@ -374,15 +369,22 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 
 #ifdef VIRTSER_ENABLE
-uint8_t ser_rgbByte[18] ; //ascii string 
+/* listen on serial for commands. Either a set of lower case letters mapped to colors, 
+/  or upper case letters that change RGB mode. 
+/  special command C takes 3 numbers as arguments, terminated with a newline or comma or excess digits.
+Command C takes 3-5octets of RGB settings. Numbers can be terminated with a comma or period. 
+3 octets = set all LED, 4th argument specfies specfic LED, 4+5 specify start and stop LEDs.
+*/ 
 
+uint8_t ser_rgbByte[18] ; //ascii string 
 uint8_t ser_cmd_started =0 ; // are we in process
 uint8_t ser_got_RGBbytes =0 ; // how many bytes we've recived. 
-uint8_t rgb_response[6]; // R, g, b, P1, p2
+uint8_t rgb_r[6]; // R, g, b, P1, p2
 uint8_t bs=0; // how many bytes into our rgbBytestring.
 
 void virtser_recv(uint8_t serIn) 
 { 
+  #ifdef RGBLIGHT_ENABLE 
   if ((serIn == 10 ) || (serIn ==  13) || ser_got_RGBbytes >=5) { //reached newline or max digits
 
     if (ser_cmd_started) {
@@ -390,30 +392,37 @@ void virtser_recv(uint8_t serIn)
       virtser_send('|');
 
       if (ser_got_RGBbytes==3) {
-        rgblight_setrgb( rgb_response[0], rgb_response[1], rgb_response[2]);
+        rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
       }
+
       if (ser_got_RGBbytes ==4) {
-        if (( rgb_response[3] >=0)  && (rgb_response[3] <= RGBLED_NUM) ) { // is pos1 plausible
-         rgblight_setrgb_at ( rgb_response[0], rgb_response[1], rgb_response[2], rgb_response[3]);
+        if (( rgb_r[3] >=0)  && (rgb_r[3] <= RGBLED_NUM) ) { // is pos1 plausible
+          rgblight_setrgb_at ( rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3]);
+        } else {
+          rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
         }
       }
-      if (ser_got_RGBbytes ==5) { // are start and end positions plausible? 
-        if ( (rgb_response[4] >0)  && (rgb_response[4] <= RGBLED_NUM) && (rgb_response[4] > rgb_response[3]) && 
-           (rgb_response[3] >=0)  && (rgb_response[3] <= (RGBLED_NUM -1))
+      
+      if (ser_got_RGBbytes == 5) { // are start and end positions plausible? 
+        if ( (rgb_r[4] >0)  && (rgb_r[4] <= RGBLED_NUM) && (rgb_r[4] > rgb_r[3]) && 
+           (rgb_r[3] >=0)  && (rgb_r[3] <= (RGBLED_NUM -1))
           ) {
-         rgblight_setrgb_range(rgb_response[0], rgb_response[1], rgb_response[2], rgb_response[3], rgb_response[4]);
+         rgblight_setrgb_range(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3], rgb_r[4]);
+        } else {
+         rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
         }
       }
-    } else { // newline outside of command
+    } else { // newline outside of command terminates, or something strange
       //virtser_send('.');
     }
   } 
 
-  if (1 == ser_cmd_started) {
+  if (1 == ser_cmd_started) { // collecting bytes. 
     if  (   // it is time to compute a byte
           ( ( (serIn == ',') || (serIn == '.') ) && (bs > 0) ) || // signal done with the byte. 
             (bs ==2 ) //or we know this is last.
-        ) { 
+        )
+    { 
      
       if ( (serIn <= '9') && (serIn >='0') ) { //3rd asci digit 
         ser_rgbByte[bs] = serIn;
@@ -422,25 +431,25 @@ void virtser_recv(uint8_t serIn)
       }
   
       if (bs>3) {
-        rgb_response[ser_got_RGBbytes]=255;
+        rgb_r[ser_got_RGBbytes]=255;
         ser_got_RGBbytes ++;
       }
       if (bs==3) {
-          rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*100 + (ser_rgbByte[1] -'0')*10 + (ser_rgbByte[2] -'0' );
+          rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*100 + (ser_rgbByte[1] -'0')*10 + (ser_rgbByte[2] -'0' );
           ser_got_RGBbytes ++;
       }
       if (bs ==2 ) {
-         rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*10 +  (ser_rgbByte[1] -'0' );
+         rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*10 +  (ser_rgbByte[1] -'0' );
          ser_got_RGBbytes ++;
       }
       if (bs ==1) {
-         rgb_response[ser_got_RGBbytes] = (ser_rgbByte[0] -'0');
+         rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0');
          ser_got_RGBbytes ++;
       } // {else wipe & start over}
 
       bs=0;
     //  virtser_send(ser_got_RGBbytes+'0');
-    } else { // haven't hit a terminal number end
+    } else { // haven't got enough for our byte / no terminal marker
       if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
         ser_rgbByte[bs] = serIn;
         bs++;
@@ -448,7 +457,7 @@ void virtser_recv(uint8_t serIn)
       }
     }
   } else {
-
+    // simple commands that don't need arguments. 
     switch (serIn) {
      case 'C': { // color switch
         ser_cmd_started=1;
@@ -480,15 +489,15 @@ void virtser_recv(uint8_t serIn)
          rgblight_toggle();
          break;
       } 
-      case 'P': { // 
+      case 'P': { // pulse led
          rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
          break;
       } 
-      case 'S': { // 
+      case 'S': { // Static
          rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
          break;
       } 
-      case 'U': { // 
+      case 'U': { // Rainbow
          rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
          break;
       } 
@@ -498,89 +507,8 @@ void virtser_recv(uint8_t serIn)
       }
     }
   }
-
+ #endif // RGBLIGHT_ENABLE 
 }
      
-#endif
-
-
-#ifdef RAW_ENABLE
-
-void raw_hid_receive( uint8_t *data, uint8_t length )
-{
-//print("enterd hid");
- // uint8_t *reportID = &(data[0]);
-  //uint8_t *command_id = &(data[1]);
- // uint8_t *command_data = &(data[2]);
-/*
-  uint8_t *red =&(data[3]);
-  uint8_t *blue =&(data[4]);
-  uint8_t *green =&(data[5]);
-*/
-/* 
-// Blink(1) APIcommands 
-  https://github.com/todbot/blink1/blob/master/hardware/firmware_mk2/main.c
-
-Copyright (c) ThingM, 2012-2018
-'blink(1)' is a trademark of ThingM Corporation
-LICENSE:  
-Creative Commons - Attribution - ShareAlike 3.0 
-http://creativecommons.org/licenses/by-sa/3.0/
-
-// Available commands in blink(1):
-//    - Fade to RGB color       format: { 1, 'c', r,g,b,     th,tl, ledn }
-//    - Set RGB color now       format: { 1, 'n', r,g,b,       0,0, ledn } (*)
-//    - Read current RGB color  format: { 1, 'r', n,0,0,       0,0, ledn } (2)
-//    - Serverdown tickle/off   format: { 1, 'D', {1/0}, th,tl,  {1/0},sp,ep } (*)
-//    - PlayLoop                format: { 1, 'p', on,sp,ep,c,    0, 0 } (2)
-//    - Playstate readback      format: { 1, 'S', 0,0,0,       0,0, 0 } (2)
-//    - Set color pattern line  format: { 1, 'P', r,g,b,     th,tl, p }
-//    - Save color patterns     format: { 1, 'W', 0,0,0,       0,0, 0 } (2)
-//    - read color pattern line format: { 1, 'R', 0,0,0,       0,0, p }
-//    - Set ledn                format: { 1, 'l', n,0,0,       0,0, 0 } (2+)
-//    - Read EEPROM location    format: { 1, 'e', ad,0,0,      0,0, 0 } (1)
-//    - Write EEPROM location   format: { 1, 'E', ad,v,0,      0,0, 0 } (1)
-//    - Get version             format: { 1, 'v', 0,0,0,       0,0, 0 }
-//    - Test command            format: { 1, '!', 0,0,0,       0,0, 0 }
-*/
-  /*
-// assume result ID = 1? 
-  switch ( *command_id )
-  {
-    case 'n':
-    case 'c':
-    {
-   //   uint8_t ledn = data[7];          // which LED to address
-    //  if ( (ledn > 0)  && (ledn < RGBLED_NUM) ) {
-      //  rgblight_setrgb_at(data[2],data[3],data[4], data[7]);
-     // } else {
-        rgblight_setrgb(0xFF,0xFF,0xFF);
-     // }
-      break;
-    }
-  //    - Get version             format: { 1, 'v', 0,0,0,       0,0, 0 }
-    case 'v':
-    {
-      data[3] = '2' ;
-      data[4] = '7' ;
-      break;
-    }
-
-    default:
-    {
-      // Unhandled message.
-      data[0] = 0;
-      break;
-    }
-  }
- 
-
-  // Return same buffer with values changed
-  raw_hid_send( data, length );
-  // rgblight_setrgb(0,255,127);
-  */
-}
-
-#endif
-
+#endif // VirtSerial
 

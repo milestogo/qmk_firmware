@@ -50,8 +50,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 
 USB = /dev/cu.usbmodem14141
-#LAYOUTS=8x18
-DEFAULT_FOLDER=ms_sculpt/mobile 
 
 # upload: build
 # 	$(SCULPT_UPLOAD_COMMAND)
