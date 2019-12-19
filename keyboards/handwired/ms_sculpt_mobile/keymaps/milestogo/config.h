@@ -1,6 +1,7 @@
 #pragma once
 
 // Expect to get errors if you comment a feature out and leave it in your keymap.
+#define USE_BABLPASTE
 
 #ifdef USE_BABLPASTE
 //define BabblePaste maps
