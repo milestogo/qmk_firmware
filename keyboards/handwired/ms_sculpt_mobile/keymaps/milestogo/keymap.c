@@ -44,9 +44,11 @@ enum layer_keycodes {
 #define MV9 LT(MOV, KC_9)
 #define MV0 LT(MOV, KC_0)
 
+
 enum custom_keycodes {
     DHPASTE= SAFE_RANGE,
-    VIBRK
+    VIBRK,
+    SAVE,
 };
 
 
@@ -107,7 +109,7 @@ ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
 ____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
 ____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
-____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, ____,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
+____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, SAVE,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* MOVE simple version
@@ -199,6 +201,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
+        case SAVE: 
+             if (record->event.pressed) {
+               SEND_STRING(SS_LCTL("s"));
+            }
+            return false;
+            break;
         /* Colemak mod-dh moves the D key to the qwerty V position
             This hack makes apple-V_position do what I mean */
         case DHPASTE:
