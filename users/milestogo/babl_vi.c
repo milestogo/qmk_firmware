@@ -36,6 +36,7 @@ bool babblePaste_vi(uint16_t keycode)
 	BABLM( BABL_DEL_RIGHT_WORD,	"dw"	);
 	BABLM( BABL_DEL_TO_LINE_END,	"d"IMSFT(X_4)	);
 	BABLM( BABL_DEL_TO_LINE_START,	"d"IMSFT(X_6)	);
+	BABLM( BABL_MODE, "Vi " ) ;
 #endif
 #ifdef BABL_OSKEYS
 	BABLM( BABL_UNDO , 				"h"	);

@@ -6,20 +6,16 @@ Setting the bable_mode is done by another macro, or TBD interaction with the hos
 
 Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
 and jeebak & algernon's keymap
-
-
-Keystrokes to add 
-- launcher combo
-
 */
-#pragma once
 
+#pragma once
 #include "action_layer.h"
 #include "quantum_keycodes.h"
 
 
 
 #ifdef USE_BABBLEPASTE
+
 
 void set_babble_mode( uint8_t id);
 void babble_mode_increment(void);
@@ -51,6 +47,7 @@ enum babble_modes{
 BABL_MODEMAX 
 } ;
 
+//void babble_led_user( uint8_t id) 
 
 ///Hacks to make it easier to create sendstring macros
 
@@ -109,6 +106,7 @@ enum babble_keycodes {
 	BABL_DEL_RIGHT_WORD,
 	BABL_DEL_TO_LINE_END, // delete from cursor to end of line
 	BABL_DEL_TO_LINE_START, // delete from cursor to begining line
+	BABL_MODE, // print out string saying what mode we're in. 
 #endif
 #ifdef BABL_OSKEYS
     BABL_UNDO,
@@ -219,33 +217,32 @@ bool babblePaste(uint16_t keycode);
 /****************************************************/
 /* All per-os includes and short mode switch macros*/
 #ifdef BABL_WINDOWS
-#define B_WIN  	BABL_DO_WINDOWS 
- bool babblePaste_win(uint16_t keycode);
+	#define B_WIN  	BABL_DO_WINDOWS 
+	bool babblePaste_win(uint16_t keycode);
 #endif
-
 #ifdef BABL_MAC
-#define B_MAC BABL_DO_MAC
-  bool babblePaste_mac(uint16_t keycode);
+	#define B_MAC BABL_DO_MAC
+	bool babblePaste_mac(uint16_t keycode);
 #endif
 #ifdef BABL_LINUX
-#define B_LINUX 	 BABL_DO_LINUX
-  bool babblePaste_linux(uint16_t keycode);
+	#define B_LINUX 	 BABL_DO_LINUX
+	bool babblePaste_linux(uint16_t keycode);
 #endif
 #ifdef BABL_EMACS
-#define B_EMACS   BABL_DO_EMACS
-  bool babblePaste_emacs(uint16_t keycode);
+	#define B_EMACS   BABL_DO_EMACS
+	bool babblePaste_emacs(uint16_t keycode);
 #endif
 #ifdef BABL_VI
-#define B_VI  	 BABL_DO_VI
-  bool babblePaste_vi(uint16_t keycode);
+	#define B_VI  	 BABL_DO_VI
+	bool babblePaste_vi(uint16_t keycode);
 #endif
 #ifdef BABL_READMUX
-#define B_READ   BABL_DO_READMUX
-  bool babblePaste_readmux(uint16_t keycode);
+	#define B_READ   BABL_DO_READMUX
+	bool babblePaste_readmux(uint16_t keycode);
 #endif
 #ifdef BABL_CHROMEOS
-#define B_CROM   BABL_DO_CHROMEOS
-  bool babblePaste_chromeos(uint16_t keycode);
+	#define B_CROM   BABL_DO_CHROMEOS
+	bool babblePaste_chromeos(uint16_t keycode);
 #endif
 
 #define BABL_INC babble_mode_increment();
@@ -277,6 +274,7 @@ bool babblePaste(uint16_t keycode);
 #define B_DRW  BABL_DEL_RIGHT_WORD
 #define B_DEOL  BABL_DEL_TO_LINE_END // delete from cursor to end of line
 #define B_DSOL  BABL_DEL_TO_LINE_START // delete from cursor to begining line
+#define B_MODE BABL_MODE
 #endif
 
 #ifdef BABL_OSKEYS

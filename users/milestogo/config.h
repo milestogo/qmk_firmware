@@ -55,6 +55,6 @@
 #define BABL_READMUX
 #define BABL_VI
 #define BABL_MAC
-//#define BABL_LINUX
-//#define BABL_EMACS
-//#define BABL_CHROMEOS
+#define BABL_LINUX
+#define BABL_EMACS
+#define BABL_CHROMEOS

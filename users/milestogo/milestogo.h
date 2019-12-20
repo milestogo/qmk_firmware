@@ -1,4 +1,3 @@
-
 /* Modified from 
 Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
 
@@ -31,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix.h"
 #endif
 
+#define USERSPACE_ACTIVE
+
 /* Define layer names */
 enum userspace_layers {
   _QWERTY=0, 
@@ -60,7 +61,6 @@ define modifiers here, since MOD_* doesn't seem to work for these
   #endif
 #endif
 
-
 enum userspace_custom_keycodes {
   EPRM = BABBLE_END_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
   VRSN,              // Prints QMK Firmware and board info
@@ -73,6 +73,7 @@ enum userspace_custom_keycodes {
   ALTSYM, // Alt when held, toggle MOV when tapped
   GUISYM,
   SPCMOV,
+  SAVE, // placeholder for CTRL-S while I get babble working again.
   NEW_SAFE_RANGE     //Keymap specific codes come AFTER this
 
 };
@@ -202,10 +203,10 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________BABBLE_DELMOV_L3__________________	      B_VUNSPT,B_CUT,   B_COPY,   B_PASTE, B_PRVFM
 
 #define _________BABBLE_DELMOV_R1__________________       XXXXXXX, B_DSOL,  _______, B_DEOL,  XXXXXXX
-#define _________BABBLE_DELMOV_R2__________________       B_DLW,   KC_BSPC, _______, KC_DEL,  B_DRW 
+#define _________BABBLE_DELMOV_R2__________________       B_DLW,   KC_BSPC, _______, B_DEL,  B_DRW 
 #define _________BABBLE_DELMOV_R3__________________       B_NAPP,  B_ZOUT,  B_WINN,  B_ZIN,   B_PAPP
 
-/* NUM  / excel / programming logic +=1 optimization*/
+/* SYM  / excel / programming logic +=1 optimization*/
 /*    ,----------------------------------.  ,----------------------------------.
  * 01 |      |   [  |  ]   |  {   |      |  |      |  }   | (    | )    |      |
  *    |------+------+------+------+------|  |------+------+------+------+------|
@@ -229,10 +230,28 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________SYM_R1__________________       XXXXXXX,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
 #define ___________________SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define ___________________SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
+
+
+
+/* Based on BEKL 15 punctuation
+*     ,----------------------------------.  ,----------------------------------.
+ * 01 |      |   <  |  $   |  >   |      |  |      |  [   |  _   |  ]   |      |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 02 |  \   |   (  |  ""  |  )   |  #   |  |   %  |  {   |  =   |  }   |  "|" |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 03 |      |   :  |   *  |  +   |      |  |      |  &   |  ^   |  ~   |      |
+ *    `----------------------------------'  `----------------------------------'
+ Memnonics
+
+ */
+#define ______________BEKL_SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, XXXXXXX
+#define ______________BEKL_SYM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
+#define ______________BEKL_SYM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
+  
+#define ______________BEKL_SYM_R1__________________       XXXXXXX,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
+#define ______________BEKL_SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
+#define ______________BEKL_SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
  
-
-
-
 // NUM  
 /*    ,----------------------------------.  ,----------------------------------.
  * 01 |   1  |   2  |  3   |  4   |  5   |  |   6  |  7   |  8   |   9  |  0   |
@@ -276,28 +295,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________40_______NUM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define __________40_______NUM_R3__________________       KC_PERC,  KC_TILDE, KC_AMPR,KC_DOT,  KC_SLASH
  
-
-
-// SYMB  Symbol entry trial
-/*    ,----------------------------------.  ,----------------------------------.
- * 01 |  F1  |  F2  |  F3  |  F4  |  F5  |  |  F6  |  F7  |  F8  |  F9  |  F10 |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 02 |   <  |   [  |   (  |   {  |  ;   |  |   :  |   }  |   )  |  ]   |  >   |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 03 |      |   ]  |   )  |   }  |      |  |  F11 |  F12 |   <  |   >  |      |
- *    `----------------------------------'  `----------------------------------'
- */
- 
-#define __________40______SYMB_L1__________________       _________________FUNC_LEFT_________________
-#define __________40______SYMB_L2__________________       KC_LT,   KC_LBRC, KC_LPRN, KC_LBRC, KC_SEMI
-#define __________40______SYMB_L3__________________       _______, KC_RBRC, KC_RPRN, KC_RBRC, XXXXXXX
-
-
-#define __________40______SYMB_R1__________________       _________________FUNC_RIGHT________________
-#define __________40______SYMB_R2__________________       KC_COLN, KC_RBRC, KC_RPRN, KC_RBRC, KC_GT
-#define __________40______SYMB_R3__________________       KC_F11,  KC_F12,  KC_LT,   KC_GT,   XXXXXXX
-
-
 
 #define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
 #define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  AG_NORM

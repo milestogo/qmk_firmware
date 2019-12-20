@@ -19,13 +19,17 @@ screens in the same os.
 #define USE_BABBLEPASTE
 
 /// Uncomment the modes you want to use. 0 will be default mode on boot. 
-#define BABL_WINDOWS
-//#define BABL_READMUX
-//#define BABL_VI
-//#define BABL_MAC
-//#define BABL_LINUX
-//#define BABL_EMACS
-//#define BABL_CHROMEOS
+enum babble_modes {
+//	MS_MODE, // Windows.
+	MAC_MODE,
+	LINUX_MODE, //aka gnome+KDE
+	//EMACS_MODE,
+	//VI_MODE,
+	READMUX_MODE, // Readline and tmux
+	//BABL_CHROMEOS
+	//WORDSTAR_MODE 
+};
+
 
 /* These enable subsets of babble macros */
 

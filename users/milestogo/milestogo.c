@@ -4,7 +4,6 @@
 #include "milestogo.h"
 #include <print.h>
 
-
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
@@ -31,29 +30,49 @@ static uint16_t guimov_timer; // timer for guimov key
       }   
 #endif
 
-  switch (keycode) {
-  case KC_QWERTY:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_QWERTY);
-    }
-    break;
+    switch (keycode) {
+        case _QWERTY:
+        if (record->event.pressed) {
+          set_single_persistent_default_layer(_QWERTY);
+        }
+        break;
 
-  case KC_CDH:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_CDH);
-    }
-    break;
+        case _CDH:
+        if (record->event.pressed) {
+          set_single_persistent_default_layer(_CDH);
+        }
+        break;
 
-  case TMUX: // ctl-B
-     if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_B)SS_DOWN(X_LCTRL));
-     }
-  break;
+        case TMUX: // ctl-B
+         if (record->event.pressed) {
+              SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_B)SS_DOWN(X_LCTRL));
+         }
+        break;
 
- case ALTSYM: 
-     if (record->event.pressed) {
-          altmov_timer = timer_read();
-          register_code(KC_LALT);
+    /* Colemak mod-dh moves the D key to the qwerty V position
+                This hack makes apple-V_position do what I mean */
+        case DHPASTE:
+            if(get_mods() & MOD_BIT(KC_LGUI) ) {
+                if (record->event.pressed) {
+                    clear_keyboard_but_mods();
+                    register_code(KC_V);
+                } else {
+                    unregister_code(KC_V);
+                }
+            } else {
+                if (record->event.pressed) {
+                    register_code(KC_D);
+                } else {
+                    unregister_code(KC_D);
+                }
+            }
+            return false;
+            break;
+
+    case ALTSYM: 
+        if (record->event.pressed) {
+            altmov_timer = timer_read();
+            register_code(KC_LALT);
      } else {
         unregister_code(KC_LALT);
 
@@ -98,12 +117,8 @@ static uint16_t guimov_timer; // timer for guimov key
 }
 
 
-
 #ifdef TAP_DANCE_ENABLE
-
 uint8_t cur_dance (qk_tap_dance_state_t *state);
-
-
 
 // thanks to http://thedarnedestthing.com/planck%20qmk for these ideas
 static uint8_t mods = 0;
@@ -120,8 +135,6 @@ void tap_mods(keyrecord_t *record, uint16_t keycode)
   }
 }
 
-
-
 // straight from https://beta.docs.qmk.fm/features/feature_tap_dance
 
 static babblespace_state bstate = {
@@ -131,9 +144,7 @@ static babblespace_state bstate = {
  .sticky = false
 } ;
 
-
 //Tap Dance Definitions
-
 uint8_t cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
@@ -172,7 +183,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // tap & hold -> held spacebar. 
 // tap -> unlock layer, or keycode
 // typing fast -> keycode * taps, following key. 
-
 
 void dance_bablespace_finished (qk_tap_dance_state_t *state, void *user_data) {
   

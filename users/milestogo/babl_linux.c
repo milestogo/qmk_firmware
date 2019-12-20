@@ -40,6 +40,7 @@ bool babblePaste_linux(uint16_t keycode)
 	BABLM( BABL_DEL_RIGHT_WORD,	IMCTL(X_DELETE)	);
 	BABLM( BABL_DEL_TO_LINE_END,	IMSFT(X_HOME)SS_TAP(X_DELETE) );
 	BABLM( BABL_DEL_TO_LINE_START,	IMSFT(X_END) SS_TAP(X_DELETE)	);
+	BABLM( BABL_MODE, "Linux " ) ;
 #endif
 #ifdef BABL_OSKEYS
 	BABLM( BABL_UNDO, 		SS_LCTRL("z") );
@@ -53,7 +54,7 @@ bool babblePaste_linux(uint16_t keycode)
 	BABLM( BABL_HELP,		SS_TAP(X_F1)	);
 	/* BABLM(BABL_FIND_NEXT  (SS_LALT(X_F3))	); //KDE */
 	BABLM( BABL_FIND_NEXT,	SS_LCTRL("g") ); // Gnome*/
-	BABLM( BABL_FIND_PREV,	OMSFT(IMCTL(X_G) ); // Gnome*/
+	BABLM( BABL_FIND_PREV,	OMSFT( IMCTL(X_G)) ); // Gnome*/
 	/* BABLM( BABL_FIND_REPLACE , (SS_LCTRL("r"))	); // KDE */
 	BABLM( BABL_FIND_REPLACE,	SS_LCTRL("h") ); // Gnome*/
 	BABLM( BABL_RUNAPP,			IMALT(X_F2)	); //Gnome
@@ -82,7 +83,7 @@ bool babblePaste_linux(uint16_t keycode)
 	//chrome
 	BABLM( BABL_BROWSER_RELOAD,			IMCTL(X_F5)	); // hard reload w/o cache
 	BABLM( BABL_BROWSER_FULLSCREEN,		SS_TAP(X_F11)	); //command shift F
-	BABLM( BABL_BROWSER_ZOOM_IN,		OMSFT(IMCTL(X_EQUAL))	); // ctr+ +
+	BABLM( BABL_BROWSER_ZOOM_IN,		OMSFT( IMCTL(X_EQUAL))	); // ctr+ +
 	BABLM( BABL_BROWSER_ZOOM_OUT,		IMCTL(X_MINUS)	);
 	BABLM( BABL_BROWSER_VIEWSRC,		SS_LCTRL("u")	 );// Chrome or firefox
 #endif

@@ -14,7 +14,7 @@
 #ifdef BABL_READMUX
 
 //Redefine if you use something other than CTRL-B to activate tmux. 
-#define TMUX SS_LCTRL("b")
+#define TMUX SS_LCTL("b")
 
 bool babblePaste_readmux(uint16_t keycode) 
 {
@@ -24,33 +24,34 @@ bool babblePaste_readmux(uint16_t keycode)
 	BABLM( BABL_GO_RIGHT_1C, 		SS_TAP(X_RIGHT)	);
 	BABLM( BABL_GO_LEFT_WORD, 		SS_LALT("b") );
 	BABLM( BABL_GO_RIGHT_WORD ,		SS_LALT("f") );
-	BABLM( BABL_GO_START_LINE ,  	SS_LCTRL("a")	);
-	BABLM( BABL_GO_END_LINE ,  		SS_LCTRL("e")	);
+	BABLM( BABL_GO_START_LINE ,  	SS_LCTL("a")	);
+	BABLM( BABL_GO_END_LINE ,  		SS_LCTL("e")	);
 	//BABLM( BABL_GO_START_DOC		,END );// tmux?
 	//BABLM( BABL_GO_END_DOC		,END );  // tmux?
-	BABLM( BABL_GO_NEXT_LINE , 		SS_LCTRL("n")	);
-	BABLM( BABL_GO_PREV_LINE ,  	SS_LCTRL("p")	);
+	BABLM( BABL_GO_NEXT_LINE , 		SS_LCTL("n")	);
+	BABLM( BABL_GO_PREV_LINE ,  	SS_LCTL("p")	);
 	//BABLM( BABL_GO_PARA_START,	// undefined
 	//BABLM( BABL_GO_PARA_END,	 	// undefinedBABLM( BABL_PGDN ,				
 
 	BABLM( BABL_PGUP ,  			SS_TAP(X_PGUP) 	);
 	BABLM( BABL_PGDN ,  			SS_TAP(X_PGDOWN) 	);
-	BABLM( BABL_DEL_RIGHT_1C, 		SS_LCTRL("d")	);
-	BABLM( BABL_DEL_LEFT_WORD , 	SS_LCTRL("w")	); // meta-DEL instead?
+	BABLM( BABL_DEL_RIGHT_1C, 		SS_LCTL("d")	);
+	BABLM( BABL_DEL_LEFT_WORD , 	SS_LCTL("w")	); // meta-DEL instead?
 	BABLM( BABL_DEL_RIGHT_WORD , 	SS_LALT("d")	);
-	BABLM( BABL_DEL_TO_LINE_END,	SS_LCTRL("k")	);
-	BABLM( BABL_DEL_TO_LINE_START,	SS_LCTRL("u")	);
+	BABLM( BABL_DEL_TO_LINE_END,	SS_LCTL("k")	);
+	BABLM( BABL_DEL_TO_LINE_START,	SS_LCTL("u")	);
+	BABLM( BABL_MODE, "Readline " ) ;
 #endif
 #ifdef BABL_OSKEYS
 	BABLM( BABL_UNDO , 			SS_LALT("r")	);
-	BABLM( BABL_REDO , 			SS_LCTRL("x")"c"	); // arguably
-	BABLM( BABL_CUT , 			SS_LCTRL("k")	); // wrong half the time
+	BABLM( BABL_REDO , 			SS_LCTL("x")"c"	); // arguably
+	BABLM( BABL_CUT , 			SS_LCTL("k")	); // wrong half the time
 	//BABLM( BABL_COPY		,END ); 
-	BABLM( BABL_PASTE ,  		SS_LCTRL("y")	);		
-	BABLM( BABL_SELECT_ALL ,	SS_LCTRL("aky")	); 
-	BABLM( BABL_FIND ,  		SS_LCTRL("r")	);	 // search history
-	BABLM( BABL_FIND_NEXT,  	SS_LCTRL("r")	);
-	BABLM( BABL_FIND_PREV,  	SS_LCTRL("s")	);	
+	BABLM( BABL_PASTE ,  		SS_LCTL("y")	);		
+	BABLM( BABL_SELECT_ALL ,	SS_LCTL("aky")	); 
+	BABLM( BABL_FIND ,  		SS_LCTL("r")	);	 // search history
+	BABLM( BABL_FIND_NEXT,  	SS_LCTL("r")	);
+	BABLM( BABL_FIND_PREV,  	SS_LCTL("s")	);	
 	//BABLM( BABL_FIND_REPLACE		,END ); // not offered in readline
 	BABLM( BABL_RUNAPP ,  		TMUX "c"	);  //tmux
 	BABLM( BABL_SWITCH_APP_NEXT ,  TMUX "n"	);  //tmux
@@ -77,9 +78,9 @@ bool babblePaste_readmux(uint16_t keycode)
 	BABLM( BABL_UNSPLIT_FRAME_VERT,		TMUX IMSFT(X_1)		);  
 	BABLM( BABL_SPLIT_FRAME_HORIZONTAL, TMUX IMSFT(X_QUOTE)		); 
 	// This one closes the current pane. 
-	BABLM( BABL_UNSPLIT_FRAME_HORIZONTAL, SS_LCTRL("b")"x"  ); 
-	BABLM( BABL_NEXT_FRAME, SS_LCTRL("b")"o"	); 
-	BABLM( BABL_PREV_FRAME, SS_LCTRL("w")SS_TAP(X_SCOLON)	); 
+	BABLM( BABL_UNSPLIT_FRAME_HORIZONTAL, SS_LCTL("b")"x"  ); 
+	BABLM( BABL_NEXT_FRAME, SS_LCTL("b")"o"	); 
+	BABLM( BABL_PREV_FRAME, SS_LCTL("w")SS_TAP(X_SCOLON)	); 
 #endif
 
 		// Todo, ring bell, flash light, show user this isn't supported

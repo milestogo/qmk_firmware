@@ -3,17 +3,14 @@
 
 #include "virtser.h"
 #include <print.h>
+#include "milestogo.h"
 
-enum layer_names {
-_QWR =0,
-_CDH,
-_SYM,
-_MOV,
-_TRAN
-};
 
 #define LAYOUT_local LAYOUT_mobile_XUW
+#define LAYOUT LAYOUT_mobile_XUW
 
+
+#ifndef USERSPACE_ACTIVE
 enum layer_keycodes {
     QWR,
     CDH,
@@ -23,6 +20,15 @@ enum layer_keycodes {
     TRAN
 };
 
+enum layer_names {
+_QWR =0,
+_CDH,
+_SYM,
+_MOV,
+_TRAN
+};
+
+#endif
 
 // Shorter spacing
 #define XXXX  KC_NO
@@ -36,20 +42,14 @@ enum layer_keycodes {
 #define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
 #define SSYM LT(_SYM, KC_SPC)
 #define MVTAB LT(_MOV,KC_TAB)
-#define BKSYM LT(_SYM, KC_BSPC)
-#define MV2 LT(MOV, KC_2)
-#define MV3 LT(MOV, KC_3)
-#define MV4 LT(MOV, KC_4)
-#define MV8 LT(MOV, KC_8)
-#define MV9 LT(MOV, KC_9)
-#define MV0 LT(MOV, KC_0)
+#define BKMV TT(_MOV)
+#define MV2 LT(_MOV, KC_2)
+#define MV3 LT(_MOV, KC_3)
+#define MV4 LT(_MOV, KC_4)
+#define MV8 LT(_MOV, KC_8)
+#define MV9 LT(_MOV, KC_9)
+#define MV0 LT(_MOV, KC_0)
 
-
-enum custom_keycodes {
-    DHPASTE= SAFE_RANGE,
-    VIBRK,
-    SAVE,
-};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,13 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_QWR] = LAYOUT_local( \
-KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
-KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+[_QWERTY] = LAYOUT_local( \
+KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(_CDH),\
+KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINS, KC_EQL, KC_BSPC, KC_DEL,\
 KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
-BKSYM,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
+BKMV,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
 KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
+KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,KC_CDH, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
@@ -85,7 +85,7 @@ KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MI
 KC_TAB,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
 KC_LCTL,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
 KC_LSFT, KC_Z, KC_X, KC_C, DHPASTE, KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
-____,     ____, ____ , ____, ____, ____, ____, ____, ____,   ____
+TG(_MOV),     ____, ____ , ____, ____, ____, KC_QWERTY, ____, ____,   ____
 ),
 
 /*  SYM
@@ -112,6 +112,8 @@ ____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1, 
 ____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, SAVE,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
+
+#ifndef USE_BABLPASTE
 /* MOVE simple version
 
 * |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
@@ -129,41 +131,50 @@ ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 */
 
 [_MOV] = LAYOUT_local(\
-____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
-____,     ____, ____, ____, ____, ____,      ____, ____, KC_UP, ____, ____,    ____, ____,   ____, \
-____,     ____, ____, ____, ____, ____,      ____,  KC_LEFT, KC_DOWN, KC_RIGHT,  ____,    ____, ____,   ____, \
-____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
-____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
+____,     XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,   XXXX, XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   ____  ,  \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,    XXXX, XXXX,   XXXX, XXXX,   \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, KC_UP, XXXX, XXXX,    XXXX, XXXX,   XXXX, \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX,  KC_LEFT, KC_DOWN, KC_RIGHT,  XXXX,    XXXX, XXXX,   XXXX, \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,    XXXX, XXXX,   XXXX, \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX
 )
 
+#else
 /* MOVE babble version version
 
-* |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
+* |ESC   | MAC|Read|Linx| VI |    |    |    |    |    |    |    |    |    |    |    |
 *  -------------------------------------------------------------------------------'
-* |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* |      |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
 * ---------------------------------------------------------------------------
-* | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
+* | tab  |ESC|FindP|Find|FindN|ncel|PStart|LStart| Up|EOL |PEnd|  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
-* --------------------------------------------------------------------------------
+* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' |        |PgUp|
+* ---------------------------------------------------------------------------------
 * |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------
-* |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
+* |       |Lgui  |Lalt |       Launch App     | GUI |  Sym |  Rctl |Left|Down|Rght|
 * ---------------------------------------------------------------------------------
 */
-/*
 
-[_MOV] = LAYOUT_local(\
-  ____,    B_MAC,B_WIN,B_READ, B_VI, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,      ____, B_PAPP, B_NAPP, ____, ____,      ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,     B_UNDO, ____, B_BFND, ____, B_PTAB,     B_DSOL, B_DLW, B_UP,   B_DRW, B_DEOL,  ____,  ____,   ____, \
-  ____,     B_SELA, B_BRLD, ____, ____, B_NXTB,     B_GSOL, B_L1C, B_DOWN, B_R1C,B_GEOL,   ____, ____, ____,\
-  ____,     B_UNDO,B_CUT, B_COPY, B_PAST, B_PAST,    ____, ____, ____, ____, ____,       ____,  ____,   ____, \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
+[_MOV] = LAYOUT_wrapper(\
+  ____,    B_MAC,  B_READ,  B_LINUX, B_VI,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,     ____,  \
+  ____,    XXXX,   B_PAPP, B_NAPP, XXXX,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   \
+  ____,    ____________BABBLE_MOV_L1__________________, ____________BABBLE_MOV_R1__________________,  XXXX,  XXXX,   XXXX, \
+  ____,    ____________BABBLE_MOV_L2__________________, ____________BABBLE_MOV_R2__________________,   XXXX, XXXX, XXXX,\
+  ____,    ____________BABBLE_MOV_L3__________________, ____________BABBLE_MOV_R2__________________,       XXXX,  XXXX,   XXXX, \
+  ____,    ____,   ____,  B_RUNAPP, XXXX, B_MODE, XXXX, XXXX, XXXX,   XXXX
+),
+[_DMOV] = LAYOUT_wrapper(\
+  ____,    B_MAC,  B_READ,  B_LINUX, B_VI,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,     ____,  \
+  ____,    XXXX,   B_PAPP, B_NAPP, XXXX,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   \
+  ____,    _________BABBLE_DELMOV_L1__________________ , _________BABBLE_DELMOV_R1__________________ ,  XXXX,  XXXX,   XXXX, \
+  ____,    _________BABBLE_DELMOV_L2__________________ , _________BABBLE_DELMOV_R2__________________ ,   XXXX, XXXX, XXXX,\
+  ____,    _________BABBLE_DELMOV_L3__________________ , _________BABBLE_DELMOV_R3__________________ ,       XXXX,  XXXX,   XXXX, \
+  ____,    XXXX,   XXXX,  XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,   XXXX
 ),
 
-
+#endif // Bablepaste
+/*
 [_TRAN] = LAYOUT_local(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
@@ -175,6 +186,7 @@ ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 */
 };
 
+#ifndef USERSPACE_ACTIVE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -243,6 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 */
     return true;
 }
+#endif
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
@@ -269,6 +282,75 @@ void matrix_scan_user(void) {
 void led_set_user(uint8_t usb_led) {
 }
 
+void babble_led_user(void) {
+#ifdef USE_BABLPASTE
+    extern uint8_t babble_mode;
+
+    #ifdef BABL_WINDOWS
+        if (babble_mode == BABL_WINDOWS_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_MS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_MS);
+            }
+        }
+    #endif
+    #ifdef BABL_READMUX
+        if (babble_mode == BABL_READMUX_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_READMUX,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_READMUX);
+            }
+        }
+    #endif 
+    #ifdef BABL_MAC
+        if ( babble_mode == BABL_MAC_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_MAC,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_MAC);
+            }
+        }
+    #endif
+    #ifdef BABL_VI
+        if (babble_mode == BABL_VI_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_VI,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_VI);
+            }
+        }
+    #endif
+    #ifdef BABL_EMACS
+        if (babble_mode == BABL_EMACS_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_EMACS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_EMACS);
+            }
+        }
+    #endif
+    #ifdef BABL_CHROMEOS
+         if (babble_mode == BABL_CHROMEOS_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_CHROMEOS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_CHROMEOS);
+            }
+        }
+    #endif
+    #ifdef BABL_LINUX 
+        if (babble_mode == BABL_LINUX_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_LINUX);
+            }
+        }
+    #endif
+#endif  // bablepaste
+}
 
 
 // Runs whenever there is a layer state change.
@@ -291,19 +373,22 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             #endif
             break;
 
-        case 2:
+        case 2: // symbol
             #ifdef RGBLIGHT_COLOR_LAYER_2
                 rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
             #endif
             break;
 
-        case 3:
+        case 3: // move
             #ifdef RGBLIGHT_COLOR_LAYER_3
                 rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
             #endif
+            #ifdef USE_BABLPASTE
+                babble_led_user(); // poke led to update
+            #endif  // bablepaste
             break;
 
-        case 4:
+        case 4: //delmove ideally we'd turn on a red in addition to the layer indicator. 
             #ifdef RGBLIGHT_COLOR_LAYER_4
                 rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
             #endif

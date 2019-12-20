@@ -42,6 +42,7 @@ bool babblePaste_emacs(uint16_t keycode)
 		BABLM( BABL_DEL_RIGHT_WORD , 	IMALT(X_D)	);
 		BABLM( BABL_DEL_TO_LINE_END,	SS_LCTRL("k")	);
 		BABLM( BABL_DEL_TO_LINE_START,	SS_TAP(X_ESCAPE) "0" SS_LCTRL("k")	);
+		BABLM( BABL_MODE, "Emacs " ) ;
 #endif
 #ifdef BABL_OSKEYS
 		BABLM( BABL_UNDO , 		SS_LCTRL("x")"c"		);
