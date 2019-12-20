@@ -104,69 +104,71 @@ TG(_MOV),     ____, ____ , ____, ____, ____, KC_QWERTY, ____, ____,   ____
 * ---------------------------------------------------------------------------------
 */
 
-[_SYM] = LAYOUT_local(\
+[_SYM] = LAYOUT_wrapper(\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
-____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
-____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, SAVE,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
+____,  _________________EXCEL_L1__________________, _________________EXCEL_R1__________________,  ____,   ____,  ____,\
+____,  _________________EXCEL_L2__________________, _________________EXCEL_R2__________________,  KC_GRV, ____,  ____,\
+____,  _________________EXCEL_L3__________________, _________________EXCEL_R3__________________,  ____,   ____,  ____,\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 
 #ifndef USE_BABLPASTE
-/* MOVE simple version
-
-* |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
-*  -------------------------------------------------------------------------------'
-* |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
-* ---------------------------------------------------------------------------
-* | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
-*  -------------------------------------------------------------------------------'
-* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
-* --------------------------------------------------------------------------------
-* |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
-* ---------------------------------------------------------------------------------
-* |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
-* ---------------------------------------------------------------------------------
-*/
 
 [_MOV] = LAYOUT_local(\
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,   XXXX, XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   ____  ,  \
-____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,    XXXX, XXXX,   XXXX, XXXX,   \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,     XXXX, XXXX,   XXXX, XXXX,   \
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, KC_UP, XXXX, XXXX,    XXXX, XXXX,   XXXX, \
-____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX,  KC_LEFT, KC_DOWN, KC_RIGHT,  XXXX,    XXXX, XXXX,   XXXX, \
-____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,    XXXX, XXXX,   XXXX, \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, KC_LEFT, KC_DOWN, KC_RIGHT,XXXX,   XXXX, XXXX,   XXXX, \
+____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,     XXXX, XXXX,   XXXX, \
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX
 )
 
 #else
 /* MOVE babble version version
 
-* |ESC   | MAC|Read|Linx| VI |    |    |    |    |    |    |    |    |    |    |    |
+* |ESC   | MAC|Read|Linx| VI |    |    |    |    |    |    |    |   |    |   |    |
 *  -------------------------------------------------------------------------------'
-* |      |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* |      |                                                 |  - | = |Bakspace| Del|
 * ---------------------------------------------------------------------------
-* | tab  |ESC|FindP|Find|FindN|ncel|PStart|LStart| Up|EOL |PEnd|  [ |  ] |  \    |    |
+* | tab  |                                                 |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' |        |PgUp|
+* |Bak/Mov|                                                |  ' |Launch App  |PgUp|
 * ---------------------------------------------------------------------------------
-* |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
+* |Lsft    |                                                 |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------
-* |       |Lgui  |Lalt |       Launch App     | GUI |  Sym |  Rctl |Left|Down|Rght|
+* |       |Lgui  |Lalt |   Exit Move Mode     | GUI |  Sym |  Rctl |Left|Down|Rght|
 * ---------------------------------------------------------------------------------
 */
+/*    ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 | ESC    |FindPrev|  Find  |FindNext| \n cell|  |ParStart|LineStrt|   Up   |  EOL   | ParEnd |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 | SelA   | Do_DEL | Shift  |   Undo |Hsplit+ |  | WrdLft | Left   | Down   | Right  | WrdRght|
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 |Vspli+  | Cut    | Copy   | Paste  | Paste  |  | WinPrv | Tab--  | NewTab | Tab++  | WinNxt |
+ *    `--------------------------------------------'  `--------------------------------------------'
+ */
 
 [_MOV] = LAYOUT_wrapper(\
-  ____,    B_MAC,  B_READ,  B_LINUX, B_VI,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,     ____,  \
-  ____,    XXXX,   B_PAPP, B_NAPP, XXXX,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   \
-  ____,    ____________BABBLE_MOV_L1__________________, ____________BABBLE_MOV_R1__________________,  XXXX,  XXXX,   XXXX, \
-  ____,    ____________BABBLE_MOV_L2__________________, ____________BABBLE_MOV_R2__________________,   XXXX, XXXX, XXXX,\
-  ____,    ____________BABBLE_MOV_L3__________________, ____________BABBLE_MOV_R2__________________,       XXXX,  XXXX,   XXXX, \
-  ____,    ____,   ____,  B_RUNAPP, XXXX, B_MODE, XXXX, XXXX, XXXX,   XXXX
+  ____,    ____________BABBLE_SWITCH_L________________, ____________BABBLE_SWITCH_R________________,    XXXX,   XXXX,   XXXX,   XXXX,    ____,  \
+  ____,    ____________BABBLE_MOV_LNUM________________, ____________BABBLE_MOV_RNUM________________,    XXXX,   XXXX,   XXXX,   XXXX,\
+  ____,    ____________BABBLE_MOV_L1__________________, ____________BABBLE_MOV_R1__________________,    XXXX,   XXXX,   XXXX, \
+  ____,    ____________BABBLE_MOV_L2__________________, ____________BABBLE_MOV_R2__________________,    XXXX, B_RUNAPP, XXXX,\
+  ____,    ____________BABBLE_MOV_L3__________________, ____________BABBLE_MOV_R2__________________,   XXXX,  XXXX,   XXXX, \
+  ____,    ____,   ____,  TG(_MOV), XXXX, XXXX, XXXX,  XXXX, XXXX,   XXXX
 ),
+// Move in a direction, deleting as we go, or do opposite of Mov layer action */
+/*    ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 |  Esc   |        |Replace |MultiSel|PasteVal|  |     .  |LineStrt|   .    |  EOL   |    .   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 |        | Do_Mov | Shift  | Redo   |Hsplit- |  | WrdLft | Left   |   .    | Right  | WrdRght|
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 |Vsplit- | Cut    | Copy   | Paste  |Paste   |  |  App-- | ZoomOut| NewWin | ZoomIn | App+   |
+ *    `--------------------------------------------'  `--------------------------------------------'
+ */ 
 [_DMOV] = LAYOUT_wrapper(\
   ____,    B_MAC,  B_READ,  B_LINUX, B_VI,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,     ____,  \
-  ____,    XXXX,   B_PAPP, B_NAPP, XXXX,    XXXX,    XXXX,   XXXX,  XXXX,   XXXX,  XXXX,    XXXX,     XXXX,   XXXX,    XXXX,   \
+  ____,    ____________BABBLE_MOV_LNUM________________,  ____________BABBLE_MOV_RNUM________________,    XXXX,     XXXX,   XXXX,    XXXX,   \
   ____,    _________BABBLE_DELMOV_L1__________________ , _________BABBLE_DELMOV_R1__________________ ,  XXXX,  XXXX,   XXXX, \
   ____,    _________BABBLE_DELMOV_L2__________________ , _________BABBLE_DELMOV_R2__________________ ,   XXXX, XXXX, XXXX,\
   ____,    _________BABBLE_DELMOV_L3__________________ , _________BABBLE_DELMOV_R3__________________ ,       XXXX,  XXXX,   XXXX, \
@@ -242,17 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
     }
-/*
-    //Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite
-#ifdef USE_BABLPASTE
-    if( keycode >= BABL_START_NUM && keycode < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
-        if (record->event.pressed)  { // is there a case where this isn't desired?
-            babblePaste ( record,  keycode);
-            return false;
-        }
-    }
-#endif
-*/
+
     return true;
 }
 #endif
@@ -273,85 +265,6 @@ void matrix_init_user(void) {
     #endif
     #endif //RGB_matrix  
 }
-
-
-void matrix_scan_user(void) {
-}
-
-
-void led_set_user(uint8_t usb_led) {
-}
-
-void babble_led_user(void) {
-#ifdef USE_BABLPASTE
-    extern uint8_t babble_mode;
-
-    #ifdef BABL_WINDOWS
-        if (babble_mode == BABL_WINDOWS_MODE) {
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_MS,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_MS);
-            }
-        }
-    #endif
-    #ifdef BABL_READMUX
-        if (babble_mode == BABL_READMUX_MODE){
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_READMUX,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_READMUX);
-            }
-        }
-    #endif 
-    #ifdef BABL_MAC
-        if ( babble_mode == BABL_MAC_MODE) {
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_MAC,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_MAC);
-            }
-        }
-    #endif
-    #ifdef BABL_VI
-        if (babble_mode == BABL_VI_MODE){
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_VI,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_VI);
-            }
-        }
-    #endif
-    #ifdef BABL_EMACS
-        if (babble_mode == BABL_EMACS_MODE){
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_EMACS,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_EMACS);
-            }
-        }
-    #endif
-    #ifdef BABL_CHROMEOS
-         if (babble_mode == BABL_CHROMEOS_MODE) {
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_CHROMEOS,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_CHROMEOS);
-            }
-        }
-    #endif
-    #ifdef BABL_LINUX 
-        if (babble_mode == BABL_LINUX_MODE){
-            if (BABL_LED_INDEX >0) {   
-                rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX,BABL_LED_INDEX);
-            } else {
-                rgblight_setrgb(RGBLIGHT_COLOR_LINUX);
-            }
-        }
-    #endif
-#endif  // bablepaste
-}
-
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -388,7 +301,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             #endif  // bablepaste
             break;
 
-        case 4: //delmove ideally we'd turn on a red in addition to the layer indicator. 
+        case 4: //delmove ideally we'd turn on a red pixel in addition to the layer indicator. 
             #ifdef RGBLIGHT_COLOR_LAYER_4
                 rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
             #endif

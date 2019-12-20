@@ -165,13 +165,15 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 
 // BabblePaste 
-#define ____________BABBLE_SWITCH_L________________       B_MAC  , B_READ , B_VI   , B_EMACS, _______
+#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, B_VI, _______
 #define ____________BABBLE_SWITCH_R________________       B_CROM, B_LINUX, B_WIN  , QWERTY,  COLEMAK
 
 
 /////////MOVE  - Full size  keyboard version
 
 /*    ,--------------------------------------------.  ,--------------------------------------------.
+ * N  |Lock    |PrevApp |NextApp |PasteVal|        |  |        |        |SwitchKB|Devtools| Lock   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 01 | ESC    |FindPrev|  Find  |FindNext| \n cell|  |ParStart|LineStrt|   Up   |  EOL   | ParEnd |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 02 | SelA   | Do_DEL | Shift  |   Undo |Hsplit+ |  | WrdLft | Left   | Down   | Right  | WrdRght|
@@ -180,13 +182,16 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
  *    `--------------------------------------------'  `--------------------------------------------'
  */
 /* Movement layer  similar to Extend, but fully enriched with babblepaste */
-#define ____________BABBLE_MOV_L1__________________      KC_ESC, B_FINDP,  B_FIND,  B_FINDN, B_NCEL
-#define ____________BABBLE_MOV_L2__________________      B_SELA , MO(_DMOV),KC_LSFT,B_UNDO, B_HSPLIT
-#define ____________BABBLE_MOV_L3__________________      B_VSPLIT, B_CUT,  B_COPY,  B_PASTE, B_PASTE
+#define ____________BABBLE_MOV_LNUM________________     B_LOCK, B_PAPP,   B_NAPP,   B_PASTV,    XXXX    
 
-#define ____________BABBLE_MOV_R1__________________      B_PTOP,  B_GSOL,   B_UP,    B_GEOL,  B_PEND
-#define ____________BABBLE_MOV_R2__________________      B_L1W,   B_L1C,    B_DOWN,  B_R1C,   B_R1W
-#define ____________BABBLE_MOV_R3__________________      B_PWIN,  B_PTAB,   B_NTAB,  B_NXTB,  B_NWIN
+#define ____________BABBLE_MOV_L1__________________     KC_ESC, B_FINDP,  B_FIND,  B_FINDN, B_NCEL
+#define ____________BABBLE_MOV_L2__________________     B_SELA , MO(_DMOV),KC_LSFT,B_UNDO, B_HSPLIT
+#define ____________BABBLE_MOV_L3__________________     B_VSPLIT, B_CUT,  B_COPY,  B_PASTE, B_PASTE
+
+#define ____________BABBLE_MOV_RNUM________________     XXXX,    XXXX,     B_KEYB,  B_BDEV,  B_LOCK
+#define ____________BABBLE_MOV_R1__________________     B_PTOP,  B_GSOL,   B_UP,    B_GEOL,  B_PEND
+#define ____________BABBLE_MOV_R2__________________     B_L1W,   B_L1C,    B_DOWN,  B_R1C,   B_R1W
+#define ____________BABBLE_MOV_R3__________________     B_PWIN,  B_PTAB,   B_NTAB,  B_NXTB,  B_NWIN
 
 
 // Move in a direction, deleting as we go, or do opposite of Mov layer action */
@@ -231,6 +236,25 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define ___________________SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
 
+
+
+/* excel centric symbol layer*/
+ /*    ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 |  DelRow|InsCol  | SelCol |PasteVal|        |  |     .  |   1    |  2     |   3    |        |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 |   -    |InsRow  | SelRow | Undo   | +      |  |    *   |   4    |  5     |   6    |   -    |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 | Undo   |  Cut   | Copy   | Paste  |Paste   |  |    /   |   7    |  8     |   9    | Paste  |
+ *    `--------------------------------------------'  `--------------------------------------------'
+ 
+ */
+#define _________________EXCEL_L1__________________       B_DROW,   B_ICOL, B_SELC, B_PASTV,    XXXX
+#define _________________EXCEL_L2__________________       KC_MINS,   B_ICOL, B_SELC,  B_UNDO,   KC_PLUS
+#define _________________EXCEL_L3__________________       B_UNDO,   B_CUT,  B_COPY, B_PASTE,    B_PASTE
+  
+#define _________________EXCEL_R1__________________       XXXXXXX,  KC_1, KC_2, KC_3, XXXXXXX
+#define _________________EXCEL_R2__________________       KC_ASTR,  KC_4, KC_5, KC_6, KC_MINS
+#define _________________EXCEL_R3__________________       KC_SLASH, KC_7, KC_8, KC_8, B_PASTE
 
 
 /* Based on BEKL 15 punctuation

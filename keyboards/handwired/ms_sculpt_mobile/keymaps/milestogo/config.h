@@ -4,37 +4,6 @@
 #define USE_BABLPASTE
 
 #ifdef USE_BABLPASTE
-//define BabblePaste maps
-/*
-enum bablemodes { // remember the order if you use increment/decrement operators
-//	MS_MODE, // Windows.
-	MAC_MODE,
-	LINUX_MODE, //aka gnome+KDE
-	//EMACS_MODE,
-	VI_MODE,
-	READMUX_MODE, // Readline and tmux
-	//CHROMEOS_MODE
-};
-*/
-/* These enable subsets of babble macros */
-#define BABL_MOVE // Uncomment to add basic cursor movement
-#define BABL_OSKEYS // This adds Cut, paste, window movement and common OS shortcuts
-#define BABL_BROWSER // Browser shortcuts
-
-// What Browser is assumed?
-#define BABL_BROWSER_CHROME // Chrome browser, Google apps
-
-#define BABL_APP // much more speculative keys for applications across OSes.
-/// To enable App options.
-#define BABL_APP_CELLS // spreadsheets and tables
-#define BABL_APP_EDITOR // Fancy editor commands 
-#define BABL_APP_WINDOWSPLITTING // splitting frames & windows
-
-///// What App keybinding is assumed? 
-//#define BABL_APP_GOOGLE // google office 
-#define BABL_APP_MSOFFICE // ms office
-//#define BABL_APP_APPLE // Apple office
-#define BABL_APP_SUBLIME
 
 #ifdef RGBLIGHT_ENABLE
 #define BABL_LED_INDEX 0 // set to 0 to set all LEDs , or set to # of LED to be used as BABL updaters

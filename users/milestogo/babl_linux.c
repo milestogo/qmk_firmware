@@ -52,7 +52,7 @@ bool babblePaste_linux(uint16_t keycode)
 	BABLM( BABL_FIND, 		SS_LCTRL("f") );
 	BABLM( BABL_CLOSE_APP, 	IMALT(X_F4)	);
 	BABLM( BABL_HELP,		SS_TAP(X_F1)	);
-	/* BABLM(BABL_FIND_NEXT  (SS_LALT(X_F3))	); //KDE */
+	//BABLM(BABL_FIND_NEXT  (SS_LALT(X_F3))	); //KDE */
 	BABLM( BABL_FIND_NEXT,	SS_LCTRL("g") ); // Gnome*/
 	BABLM( BABL_FIND_PREV,	OMSFT( IMCTL(X_G)) ); // Gnome*/
 	/* BABLM( BABL_FIND_REPLACE , (SS_LCTRL("r"))	); // KDE */

@@ -20,6 +20,7 @@ and jeebak & algernon's keymap
 void set_babble_mode( uint8_t id);
 void babble_mode_increment(void);
 void babble_mode_decrement(void);
+void babble_led_user(void);
 
 // manually re-order these if you want to set the order or default. 
 enum babble_modes{ 
@@ -274,7 +275,7 @@ bool babblePaste(uint16_t keycode);
 #define B_DRW  BABL_DEL_RIGHT_WORD
 #define B_DEOL  BABL_DEL_TO_LINE_END // delete from cursor to end of line
 #define B_DSOL  BABL_DEL_TO_LINE_START // delete from cursor to begining line
-#define B_MODE BABL_MODE
+#define B_MODE BABL_MODE // type out name of current mode. 
 #endif
 
 #ifdef BABL_OSKEYS

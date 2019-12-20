@@ -117,6 +117,78 @@ static uint16_t guimov_timer; // timer for guimov key
 }
 
 
+void babble_led_user(void) {
+#ifdef USE_BABLPASTE
+    extern uint8_t babble_mode;
+
+    #ifdef BABL_WINDOWS
+        if (babble_mode == BABL_WINDOWS_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_MS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_MS);
+            }
+        }
+    #endif
+    #ifdef BABL_READMUX
+        if (babble_mode == BABL_READMUX_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_READMUX,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_READMUX);
+            }
+        }
+    #endif 
+    #ifdef BABL_MAC
+        if ( babble_mode == BABL_MAC_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_MAC,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_MAC);
+            }
+        }
+    #endif
+    #ifdef BABL_VI
+        if (babble_mode == BABL_VI_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_VI,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_VI);
+            }
+        }
+    #endif
+    #ifdef BABL_EMACS
+        if (babble_mode == BABL_EMACS_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_EMACS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_EMACS);
+            }
+        }
+    #endif
+    #ifdef BABL_CHROMEOS
+         if (babble_mode == BABL_CHROMEOS_MODE) {
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_CHROMEOS,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_CHROMEOS);
+            }
+        }
+    #endif
+    #ifdef BABL_LINUX 
+        if (babble_mode == BABL_LINUX_MODE){
+            if (BABL_LED_INDEX >0) {   
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX,BABL_LED_INDEX);
+            } else {
+                rgblight_setrgb(RGBLIGHT_COLOR_LINUX);
+            }
+        }
+    #endif
+#endif  // bablepaste
+}
+
+
+
 #ifdef TAP_DANCE_ENABLE
 uint8_t cur_dance (qk_tap_dance_state_t *state);
 
