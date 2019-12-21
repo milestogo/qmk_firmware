@@ -81,6 +81,7 @@ bool babblepaste_chromeos(uint16_t keycode) {
 #endif
 
 #ifdef BABL_APP
+	BABLM( BABL_APP_SAVE, SS_LCTL("s") );
 //#ifdef BABL_APP_GOOGLE  -- we're going to make an assumption. 
 	BABLM( BABL_APP_CENTER_ALIGN, 	OMSFT(IMCTL(X_E)) );
 	BABLM( BABL_APP_SCROLL_ACTIVE_CELL, 	IMCTL(X_BSPACE) );

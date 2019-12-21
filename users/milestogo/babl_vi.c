@@ -61,7 +61,8 @@ bool babblePaste_vi(uint16_t keycode)
 /* what _is_ the VI browser now that vimpirator is dead?*/
 #endif
 
-#ifdef BABL_APP 
+#ifdef BABL_APP
+	BABLM( BABL_APP_SAVE, SS_TAP(X_ESCAPE)":w" );
 #ifdef BABL_APP_WINDOWSPLITTING
 	BABLM( BABL_SPLIT_FRAME_VERT,			SS_TAP(X_ESCAPE)":vsplit"  ); 
 	BABLM( BABL_UNSPLIT_FRAME_VERT,			SS_TAP(X_ESCAPE)":hide" 	); // debatable. 

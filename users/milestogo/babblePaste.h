@@ -157,6 +157,7 @@ enum babble_keycodes {
 	BABL_BROWSER_VIEWSRC,	
 #endif
 #ifdef BABL_APP
+	BABL_APP_SAVE, // save file blurs app & os. Move? 
 	BABL_APP_PASTE_VALUES, // paste only values, or with some special formatting. ctrl shift v chrome, // Ctrl+Alt+V, excel
 	// App hotkeys will be flawed, since you may use different spreadsheets across OSes.
 #ifdef BABL_APP_CELLS // spreadsheets and tables
@@ -323,7 +324,7 @@ bool babblePaste(uint16_t keycode);
 
 
 #ifdef BABL_APP
-
+#define B_SAVE  BABL_APP_SAVE
 #ifdef BABL_APP_CELLS // spreadsheets and tables
 #define B_PASTV BABL_APP_PASTE_VALUES
 #define B_CALN	BABL_APP_CENTER_ALIGN

@@ -99,6 +99,7 @@ bool babblePaste_win(uint16_t keycode)
 #endif
 
 #ifdef BABL_APP
+	BABLM( BABL_APP_SAVE, SS_LCTL("s") );
 #ifdef BABL_APP_EDITOR
 #ifdef BABL_APP_SUBLIME 
 	//http://sweetme.at/2013/08/08/sublime-text-keyboard-shortcuts/

@@ -154,6 +154,10 @@ B_CROM // switch to chromeos mode.
 #define B_PRVFM		BABL_PREV_FRAME
 
 #### Development FAQs
+-- Todos
+eeprom store state of babble_mode? or update docs so that people can change the order of the enum in
+babblespace.h?
+
 --Why not an array of arrays as a lookup instead of a function? That would allow you 
 to store the lookup table in PROGMEM. 
 True, but that takes more pre-processor skill than I have, and may be less portable to ARM. 

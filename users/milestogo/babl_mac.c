@@ -13,8 +13,6 @@ and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jee
 #ifdef USE_BABBLEPASTE
 #include "babblePaste.h"
 
-
-
 #ifdef BABL_MAC
 
 bool babblePaste_mac(uint16_t keycode) 
@@ -99,7 +97,7 @@ bool babblePaste_mac(uint16_t keycode)
 #endif //  BABL_BROWSER
 
 #ifdef BABL_APP
-
+		BABLM( BABL_APP_SAVE, SS_LGUI("s") );
 #ifdef BABL_APP_EDITOR
 #ifdef BABL_APP_SUBLIME
 		BABLM( BABL_APP_MULTI_SELECT, 	OMCTL(IMGUI(X_G)) ); // add all occurences of current word to select.

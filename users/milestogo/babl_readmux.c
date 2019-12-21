@@ -73,6 +73,7 @@ bool babblePaste_readmux(uint16_t keycode)
 #endif
 #endif
 #ifdef BABL_APP
+	// Save makes no sense here
 	BABLM( BABL_SPLIT_FRAME_VERT,	TMUX IMSFT(X_5) 	   ); 
 	// BUG - misleading. This is currently set to convert frame to a window. 
 	BABLM( BABL_UNSPLIT_FRAME_VERT,		TMUX IMSFT(X_1)		);  
