@@ -103,8 +103,8 @@ bool babblePaste_win(uint16_t keycode)
 #ifdef BABL_APP_EDITOR
 #ifdef BABL_APP_SUBLIME 
 	//http://sweetme.at/2013/08/08/sublime-text-keyboard-shortcuts/
-		BABLM( BABL_APP_MULTI_SELECT, 	IMALT(X_F3) ); // add all occurences of current word to select.
-		BABLM( BABL_APP_PASTE_VALUES, 	OMSFT(IMCTL(X_V)) ); // paste with proper indenting. 
+	BABLM( BABL_APP_MULTI_SELECT, 	IMALT(X_F3) ); // add all occurences of current word to select.
+	BABLM( BABL_APP_PASTE_VALUES, 	OMSFT(IMCTL(X_V)) ); // paste with proper indenting. 
 #endif // sublime
 #endif // editor
 

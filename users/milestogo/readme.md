@@ -2,9 +2,6 @@
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared.
 
-## Keyboard Layout Templates
-copied from drashna's templates.
-
 ## Custom Keycodes
 See the babblepaste.txt readme 
 

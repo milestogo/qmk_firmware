@@ -110,7 +110,7 @@ enum babble_keycodes {
 	BABL_MODE, // print out string saying what mode we're in. 
 #endif
 #ifdef BABL_OSKEYS
-    BABL_UNDO,
+	BABL_UNDO,
 	BABL_REDO,
 	BABL_CUT,
 	BABL_COPY,
@@ -335,11 +335,11 @@ bool babblePaste(uint16_t keycode);
 #define B_ICOL	BABL_INSERT_COL_LEFT
 #define B_IROW	BABL_INSERT_ROW
 #define B_DROW	BABL_DELETE_ROW
-#define B_SELC  BABL_SELECT_COL
-#define B_SELR  BABL_SELECT_ROW
+#define B_SELC	BABL_SELECT_COL
+#define B_SELR	BABL_SELECT_ROW
 #endif // BABL_APP_CELLS
 #ifdef BABL_APP_EDITOR
-#define B_MSEL	BABL_APP_MULTI_SELECT
+#define B_MSEL  BABL_APP_MULTI_SELECT
 		 /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
 #endif //BABL_APP_EDITOR
 #ifdef BABL_APP_WINDOWSPLITTING

@@ -19,33 +19,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //static uint16_t spcmov_timer; // timer for spcmov key
 
 #ifdef USE_BABBLEPASTE
-     if( keycode > BABBLE_START && keycode < BABBLE_END_RANGE )  {
+    if( keycode > BABBLE_START && keycode < BABBLE_END_RANGE )  {
         if (record->event.pressed)  { // is there a case where this isn't desired?
-          babblePaste ( keycode );
+            babblePaste ( keycode );
         } else{
-          return true;
+            return true;
         }
-      }   
+    }   
 #endif
 
     switch (keycode) {
         case _QWERTY:
-        if (record->event.pressed) {
-          set_single_persistent_default_layer(_QWERTY);
-        }
-        break;
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            break;
 
         case _CDH:
-        if (record->event.pressed) {
-          set_single_persistent_default_layer(_CDH);
-        }
-        break;
+            if (record->event.pressed) {
+              set_single_persistent_default_layer(_CDH);
+            }
+            break;
 
         case TMUX: // ctl-B
-         if (record->event.pressed) {
+            if (record->event.pressed) {
               SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_B)SS_DOWN(X_LCTRL));
-         }
-        break;
+            }
+            break;
 
     /* Colemak mod-dh moves the D key to the qwerty V position
                 This hack makes apple-V_position do what I mean */

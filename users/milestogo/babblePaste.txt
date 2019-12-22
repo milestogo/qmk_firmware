@@ -7,11 +7,13 @@ The same key can jump to end of a line in VI or Emacs &etc.
 The babblepaste library looks for the current OS in the babble_mode global variable. 
 To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO_x macro. 
 Currently supported modes are Windows, OS X, Gnome/kde, Emacs, VI , ChromeOS, 
-and Readline , with 70+ common macro actions. 
+and Readline, with 70+ common macro actions. 
 
-Not all actions are defined for all OSes.
-******// NOT ALL ACTIONS ARE *TESTED* on all OSes. //******
-Some keys have very different meanings between screens in the same os.  
+### BE CAREFUL ###
+* Not all actions are defined for all OSes. The default is to do nothing. 
+* Not all actions *TESTED* on all OSes. 
+* Some keys have very different meanings between screens in the same os. If you 
+* switch apps without switching modes, bad things can happen. 
 
 ###To use the library
 1) Paste the following into your config.h. 
@@ -27,8 +29,7 @@ Some keys have very different meanings between screens in the same os.
 #define BABL_EMACS
 #define BABL_CHROMEOS
 
-/* These enable subsets of babble macros. Disabling options can save space*/
-
+/* These enable subsets of babble macros. Disable options to save space*/
 #define BABL_MOVE // Uncomment to add basic cursor movement
 #define BABL_OSKEYS // This adds Cut, paste, window movement and common OS shortcuts
 #define BABL_BROWSER // Browser shortcuts
@@ -46,8 +47,8 @@ Some keys have very different meanings between screens in the same os.
 #define BABL_APP_WINDOWSPLITTING // splitting frames & windows
 
 ///// What App keybinding is assumed? 
-//#define BABL_APP_GOOGLE // google office 
-#define BABL_APP_MSOFFICE // ms office
+//#define BABL_APP_GOOGLE // Google office 
+#define BABL_APP_MSOFFICE // MS office
 //#define BABL_APP_APPLE // Apple office
 #define BABL_APP_SUBLIME
 
@@ -66,7 +67,7 @@ Some keys have very different meanings between screens in the same os.
 3) update your rules.mk to include the right modes. 
 SRC += babblePaste.c babl_windows.c babl_mac.c babl_vi.c babl_readmux.c  babl_chromeos.c babl_emacs.c babl_linux.c
 
-4) add Babbelpaste actions to your keymap. See the full list in babblePaste.h, or the
+4) add Babblepaste actions to your keymap. See the full list in babblePaste.h, or the
 list below
 
 B_WIN // switch babblepaste to  windows mode. 
@@ -158,6 +159,10 @@ B_CROM // switch to chromeos mode.
 eeprom store state of babble_mode? or update docs so that people can change the order of the enum in
 babblespace.h?
 
+--You have huge ifdef stanzas instead of functions. 
+This seemed to fail gracefully if you don't have all options defined. Patch if you can 
+think how to use fewer defines. 
+
 --Why not an array of arrays as a lookup instead of a function? That would allow you 
 to store the lookup table in PROGMEM. 
 True, but that takes more pre-processor skill than I have, and may be less portable to ARM. 
@@ -165,12 +170,8 @@ True, but that takes more pre-processor skill than I have, and may be less porta
 --Have you tested every key on every platform? 
 No. Be careful, submit a patch.  
 
---Why not have the apps dynamically updateable as well as the OS? 
+--Why not have the apps dynamically updateable via variable, in addition to the OS? 
 I'd find that confusing. Showing state to the user needs to come first. 
-
---You have huge ifdef stanzas instead of functions. 
-This seemed to fail gracefully if you don't have all options defined. Patch if you can 
-think how to use fewer defines. 
 
 -- Can the OS tell the keyboard what mode to use? 
 The keyboard side is easy to do with virtser_recv & a function that updates babble_mode. 
@@ -182,4 +183,3 @@ Thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
 and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
 https://www.howtogeek.com/115664/42-text-editing-keyboard-shortcuts-that-work-almost-everywhere/
 And of course QMK... 
-

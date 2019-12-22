@@ -21,7 +21,7 @@ bool babblePaste_linux(uint16_t keycode)
 {
 	
 #ifdef BABL_MOVE
- 	BABLM( BABL_GO_LEFT_1C,		SS_TAP(X_LEFT)	);
+	BABLM( BABL_GO_LEFT_1C,		SS_TAP(X_LEFT)	);
 	BABLM( BABL_GO_RIGHT_1C ,	SS_TAP(X_RIGHT)	);
 	BABLM( BABL_GO_LEFT_WORD,	IMCTL(X_LEFT) );
 	BABLM( BABL_GO_RIGHT_WORD, 	IMCTL(X_RIGHT) );
@@ -66,7 +66,6 @@ bool babblePaste_linux(uint16_t keycode)
 	//BABLM( BABL_HELP,		(SS_TAP(X_F1))	); // NA?
 	BABLM( BABL_LOCK,		OMCTL(IMALT(X_L))	);
 	BABLM( BABL_SCREENCAPTURE,		IMSFT(X_PSCREEN)	);  
-
 #endif
 #ifdef BABL_BROWSER
 	BABLM( BABL_BROWSER_NEW_TAB,		SS_LCTL("t")	);

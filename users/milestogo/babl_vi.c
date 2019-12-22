@@ -71,15 +71,12 @@ bool babblePaste_vi(uint16_t keycode)
 	BABLM( BABL_NEXT_FRAME, 				SS_LCTRL("w")"w"		); 
 	BABLM( BABL_PREV_FRAME, 				SS_LCTRL("w")SS_LSFT("w")	); 
 #endif
-#endif
-
+#endif // app
+	// Todo, ring bell, flash light, show user this isn't supported
 	return false;
 }
 
-#endif
-#endif
+#endif // VI
+#endif // Babblepaste
 	 
-
-		// Todo, ring bell, flash light, show user this isn't supported
-
-#endif /* VI mode*/
+	

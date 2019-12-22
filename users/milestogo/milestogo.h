@@ -34,12 +34,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Define layer names */
 enum userspace_layers {
-  _QWERTY=0, 
-  _CDH,
-  _SYM,
-  _MOV,
-  _DMOV,
-  _NUM
+    _QWERTY=0, 
+    _CDH,
+    _SYM,
+    _MOV,
+    _DMOV,
+    _NUM
 };
 
 
@@ -52,30 +52,29 @@ define modifiers here, since MOD_* doesn't seem to work for these
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 #if defined(BABBLE_END_RANGE)
-  #define USER_START BABBLE_END_RANGE
+      #define USER_START BABBLE_END_RANGE
 #else
-  #if defined(KEYMAP_SAFE_RANGE)
-    #define USER_START KEYMAP_SAFE_RANGE
-  #else
-    #define USER_START SAFE_RANGE
-  #endif
+    #if defined(KEYMAP_SAFE_RANGE)
+        #define USER_START KEYMAP_SAFE_RANGE
+    #else
+        #define USER_START SAFE_RANGE
+    #endif
 #endif
 
 enum userspace_custom_keycodes {
-  EPRM = BABBLE_END_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
-  VRSN,              // Prints QMK Firmware and board info
-  KC_QWERTY,         // Sets default layer to QWERTY
-  KC_CDH,        // Sets default layer to COLEMAK DH
-  KC_MAKE,
-  VIBRK,  // escape :
-  DHPASTE, // allow pasting via qwerty V,not colemak V
-  TMUX, // TMUX Ctrl-b
-  ALTSYM, // Alt when held, toggle MOV when tapped
-  GUISYM,
-  SPCMOV,
-  SAVE, // placeholder for CTRL-S while I get babble working again.
-  NEW_SAFE_RANGE     //Keymap specific codes come AFTER this
-
+    EPRM = BABBLE_END_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
+    VRSN,              // Prints QMK Firmware and board info
+    KC_QWERTY,         // Sets default layer to QWERTY
+    KC_CDH,        // Sets default layer to COLEMAK DH
+    KC_MAKE,
+    VIBRK,  // escape :
+    DHPASTE, // allow pasting via qwerty V,not colemak V
+    TMUX, // TMUX Ctrl-b
+    ALTSYM, // Alt when held, toggle MOV when tapped
+    GUISYM,
+    SPCMOV,
+    SAVE, // placeholder for CTRL-S while I get babble working again.
+    NEW_SAFE_RANGE     //Keymap specific codes come AFTER this
 };
     
 #define QWERTY KC_QWERTY
@@ -83,48 +82,7 @@ enum userspace_custom_keycodes {
 #define KC_RESET RESET
 
 
-#ifdef TAP_DANCE_ENABLE
-enum user_tapkeys{
-  FNKEY = 0,
-  BABLSPC
-};
 
-// these are the stock definitions. 
-enum {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD = 2,
-  DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5, //send two single taps
-  TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7
-};
-
-#define TAP_TAP_TYPE DOUBLE_SINGLE_TAP
-#define TAP_TAP_HOLD DOUBLE_HOLD
-#define MULTI_TAP TRIPLE_TAP
-
-typedef struct {
-  bool is_press_action;
-  int state;
-} tap;
-
-typedef struct {
-  bool is_press_action; 
-  uint8_t state ;
-  uint8_t insideLayer ;
-  bool sticky;
-} babblespace_state ;
-
-
-#endif // TAP_DANCE_ENABLE
-
-
-/*
-Since our quirky block definitions are basically a list of comma separated
-arguments, we need a wrapper in order for these definitions to be
-expanded before being used as arguments to the LAYOUT_xxx macro.
-*/
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #define LAYOUT KEYMAP
 #endif
