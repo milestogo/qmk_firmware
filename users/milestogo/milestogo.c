@@ -9,14 +9,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool move_is_on =false; // track if we are in _MOV layer
-bool sym_is_on =false; // track if we are in _SYM layer
-
 // Defines actions for global custom keycodes
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-//static uint16_t spcmov_timer; // timer for spcmov key
+//static uint16_t spcmov_timer; // state variable for spcmov key
+
+
 
 #ifdef USE_BABBLEPASTE
     if( keycode > BABBLE_START && keycode < BABBLE_END_RANGE )  {
@@ -66,6 +65,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+
+
+        case SPCMOV:
+            if( layer_state_is(_MOV)) {
+                if ( _MOV == get_oneshot_layer()) { // we're momentarily on the move layer
+                    if (record->event.pressed) {
+                        layer_on(_MOV);
+                    } else { 
+                        //unregister_code(KC_SPACE);
+
+                    }
+                } else { // this isn't inside a oneshot, we're all the way in _MOV
+                    if (record->event.pressed) {
+                        // ignore keydown
+                    } else {
+                       layer_off(_MOV);
+                    }
+                }
+            } else if( layer_state_is(_DMOV)) {
+                if (record->event.pressed) {
+                          layer_off(_MOV); // when I emerge from dmov, also turn of mov
+                } else {
+                        // get me out  
+                        layer_off(_DMOV);
+                     //  layer_off(_MOV);
+                }
+               
+            } else {
+                    if (record->event.pressed) {
+                        register_code(KC_SPACE);
+                    } else {
+                        unregister_code(KC_SPACE);
+                    }
+
+                   
+            }
+
+
+            return false;
+            break;
+
 
     default:
     return true;

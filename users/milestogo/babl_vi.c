@@ -56,6 +56,8 @@ bool babblePaste_vi(uint16_t keycode)
 	BABLM( BABL_HELP,	 			SS_LSFT(SS_TAP(X_SCOLON))"h"	); // start search in help
 	// BABLM( BABL_LOCK,		()	); Perhaps VI is not an OS? 
 	//BABLM( BABL_SCREENCAPTURE,		()	); // capture a buffer? 
+	//	BABLM( BABL_SWITCH_KEYBOARD_LAYOUT,		IMGUI(X_SPACE)	);
+#endif
 
 #ifdef BABL_BROWSER
 /* what _is_ the VI browser now that vimpirator is dead?*/
@@ -75,6 +77,7 @@ bool babblePaste_vi(uint16_t keycode)
 	// Todo, ring bell, flash light, show user this isn't supported
 	return false;
 }
+
 
 #endif // VI
 #endif // Babblepaste

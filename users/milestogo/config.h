@@ -23,6 +23,9 @@
 //if no chord during tapping term, do the keystroke
 #define RETRO_TAPPING
 
+#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TIMEOUT 3000
+
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
 #define NO_ACTION_MACRO

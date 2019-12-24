@@ -1,5 +1,5 @@
-#include QMK_KEYBOARD_H
 
+#include QMK_KEYBOARD_H
 
 #include "virtser.h"
 #include <print.h>
@@ -57,15 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 * |ESC | F1 | F2 | F3 | F4 | F5 | F6 | f7 | F8 | F9 | F10| F11| F12|Vol-|Vol+|_CDH|
 *  -------------------------------------------------------------------------------'
-* | ESC |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* | ~`  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
 * ---------------------------------------------------------------------------
 * | tab  |  q |  w |  e |  r |  t |  y |  u |  i |  o |  p |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
+* |  Move |  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
 * --------------------------------------------------------------------------------
 * |Lsft    |  z |  x |  c |  v |  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------
-* |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
+* |Lctl   |Lgui  |Lalt |    Space/Move Toggle | GUI |  Sym |  Rctl |Left|Down|Rght|
 * ---------------------------------------------------------------------------------
 */
 
@@ -75,17 +75,17 @@ KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,     KC_M
 KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
 BKMV,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
 KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,KC_CDH, KC_LEFT, KC_DOWN, KC_RIGHT
+KC_LCTL,  KC_LGUI, KC_LALT, SPCMOV, KC_RGUI, TT_SYM,KC_CDH, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
 [_CDH] = LAYOUT_local(\
 ____,    ____, ____, ____, ____, ____,   ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,    ____,  \
-KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5,   KC_6, KC_7, KC_8,   KC_9,   KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-KC_TAB,  KC_Q, KC_W, KC_F, KC_P, KC_B,   KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
-KC_LCTL, KC_A, KC_R, KC_S, KC_T, KC_G,   KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
-KC_LSFT, KC_Z, KC_X, KC_C, DHPASTE,KC_V, KC_K, KC_H, KC_COMM,KC_DOT, KC_SLSH, KC_RSFT, ____,    KC_1,\
-TG(_MOV),     ____, ____ , ____, ____, ____, KC_QWERTY, ____, ____,   ____
+____,    ____, ____, ____, ____, ____,   ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,   \
+____,  KC_Q, KC_W, KC_F, KC_P, KC_B,   KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN,   ____,    ____,    ____,\
+____, KC_A, KC_R, KC_S, KC_T, KC_G,   KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
+____, KC_Z, KC_X, KC_C, DHPASTE,KC_V, KC_K, KC_H, KC_COMM,KC_DOT, KC_SLSH, KC_RSFT, ____,    KC_1,\
+____,     ____, ____ , ____, ____, ____, KC_QWERTY, ____, ____,   ____
 ),
 
 /*  SYMBOL layer, several to chose from
@@ -108,7 +108,7 @@ ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,     X
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, KC_UP, XXXX, XXXX,    XXXX, XXXX,   XXXX, \
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, KC_LEFT, KC_DOWN, KC_RIGHT,XXXX,   XXXX, XXXX,   XXXX, \
 ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX, XXXX,     XXXX, XXXX,   XXXX, \
-____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX
+____,     XXXX, XXXX, XXXX, SPCMOV, XXXX,      XXXX, XXXX, XXXX, XXXX
 )
 
 #else
@@ -140,9 +140,9 @@ ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX
   ____,    ____________BABBLE_SWITCH_L________________, ____________BABBLE_SWITCH_R________________,    XXXX,   XXXX,   XXXX,   XXXX,    ____,  \
   ____,    ____________BABBLE_MOV_LNUM________________, ____________BABBLE_MOV_RNUM________________,    XXXX,   XXXX,   XXXX,   XXXX,\
   ____,    ____________BABBLE_MOV_L1__________________, ____________BABBLE_MOV_R1__________________,    XXXX,   XXXX,   XXXX, \
-  ____,    ____________BABBLE_MOV_L2__________________, ____________BABBLE_MOV_R2__________________,    XXXX, B_RUNAPP, XXXX,\
+  ____,    ____________BABBLE_MOV_L2__________________, ____________BABBLE_MOV_R2__________________,    B_MODE, B_RUNAPP, XXXX,\
   ____,    ____________BABBLE_MOV_L3__________________, ____________BABBLE_MOV_R2__________________,   XXXX,  XXXX,   XXXX, \
-  ____,    ____,   ____,  TG(_MOV), XXXX, XXXX, XXXX,  XXXX, XXXX,   XXXX
+  ____,    ____,   ____, SPCMOV, XXXX, XXXX, XXXX,  XXXX, XXXX,   XXXX
 ),
 // Move in a direction, deleting as we go, or do opposite of Mov layer action */
 /*    ,--------------------------------------------.  ,--------------------------------------------.
@@ -154,12 +154,12 @@ ____,     XXXX, XXXX, XXXX, XXXX, XXXX,      XXXX, XXXX, XXXX, XXXX
  *    `--------------------------------------------'  `--------------------------------------------'
  */ 
 [_DMOV] = LAYOUT_wrapper(\
-  ____,    ____________BABBLE_SWITCH_L________________,  ____________BABBLE_SWITCH_R________________,   XXXX,   XXXX,   XXXX,     ____,  \
+  ____,    ____________BABBLE_SWITCH_L________________,  ____________BABBLE_SWITCH_R________________,   XXXX,   XXXX,   XXXX, XXXX,     ____,  \
   ____,    ____________BABBLE_MOV_LNUM________________,  ____________BABBLE_MOV_RNUM________________,   XXXX,   XXXX,   XXXX,    XXXX,   \
   ____,    _________BABBLE_DELMOV_L1__________________ , _________BABBLE_DELMOV_R1__________________ ,  XXXX,   XXXX,   XXXX, \
   ____,    _________BABBLE_DELMOV_L2__________________ , _________BABBLE_DELMOV_R2__________________ ,  XXXX,   XXXX,   XXXX,\
   ____,    _________BABBLE_DELMOV_L3__________________ , _________BABBLE_DELMOV_R3__________________ ,  XXXX,   XXXX,   XXXX, \
-  ____,    XXXX,   XXXX,  XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,  XXXX, XXXX
+  ____,    XXXX,   XXXX,  SPCMOV, XXXX, XXXX, XXXX, XXXX, XXXX,  XXXX 
 ),
 
 #endif // Bablepaste
