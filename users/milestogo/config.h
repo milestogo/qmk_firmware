@@ -42,14 +42,16 @@
 // edit the appropriate OS config file to enable Safari, Edge, vimpirator &etc. 
 #define BABL_APP // Application specific settings this has sub-options.
 #define BABL_APP_CELLS // spreadsheets and tables
+#define BABL_APP_GOOGLE 
 #define BABL_APP_EDITOR // Fancy editor commands 
 #define BABL_APP_WINDOWSPLITTING // splitting frames & windows
+#define BABL_BROWSER_CHROME 
 
 //All OSes
 #define BABL_WINDOWS
 #define BABL_READMUX
-#define BABL_VI
+//#define BABL_VI
 #define BABL_MAC
 #define BABL_LINUX
-#define BABL_EMACS
-#define BABL_CHROMEOS
+//#define BABL_EMACS
+//#define BABL_CHROMEOS

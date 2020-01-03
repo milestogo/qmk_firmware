@@ -92,6 +92,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      //  layer_off(_MOV);
                 }
                
+            } else if(layer_state_is(_SYM) ){
+                  if ( _SYM== get_oneshot_layer()) { // we're momentarily on the sym layer
+                    if (record->event.pressed) {
+                        layer_on(_SYM);
+                    } else { 
+                        //unregister_code(KC_SPACE);
+
+                    }
+                } else { // this isn't inside a oneshot, we're all the way in _SYM
+                    if (record->event.pressed) {
+                        // ignore keydown
+                    } else {
+                       layer_off(_SYM);
+                    }
+                }
             } else {
                     if (record->event.pressed) {
                         register_code(KC_SPACE);

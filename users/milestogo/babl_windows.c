@@ -133,7 +133,7 @@ bool babblePaste_win(uint16_t keycode)
 	BABLM( BABL_APP_CLEAR_FORMATTING, 	IMCTL(X_BSLASH) );
 	BABLM( BABL_DELETE_ROW, 	IMALT(X_E)"d" ); 
 	BABLM( BABL_INSERT_COL_LEFT, 	OMALT(IMCTL(X_I))"c" ); //o for to the right.
-	BABLM( BABL_INSERT_ROW, 	IMALT(IMCTL(X_I))"w" ); // r for above. 
+	BABLM( BABL_INSERT_ROW, 	OMALT(IMCTL(X_I))"w" ); // r for above. 
 	BABLM( BABL_SELECT_COL, 	IMCTL(X_SPACE) );
 	BABLM( BABL_SELECT_ROW, 	IMSFT(X_SPACE) );
 	BABLM( BABL_DELETE_ROW, 	OMALT(IMCTL(X_KP_MINUS)) );  // once selected

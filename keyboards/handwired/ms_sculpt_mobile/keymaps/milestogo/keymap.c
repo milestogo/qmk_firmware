@@ -5,9 +5,9 @@
 #include <print.h>
 #include "milestogo.h"
 
-
-#define LAYOUT_local LAYOUT_mobile_XUW
 #define LAYOUT LAYOUT_mobile_XUW
+#define LAYOUT_local LAYOUT_mobile_XUW
+//#define FLIP_ROW_PINS
 
 
 #ifndef USERSPACE_ACTIVE
@@ -38,7 +38,6 @@ _TRAN
 
 /* Fn Keys */
 #define TT_SYM MO(_SYM)
-#define TT_NUM MO(_NUM)
 #define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
 #define SSYM LT(_SYM, KC_SPC)
 #define MVTAB LT(_MOV,KC_TAB)
@@ -247,41 +246,44 @@ void keyboard_post_init_user(void) {
 
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
-    #ifdef RGB_DI_PIN
-        rgblight_setrgb(RGB_GREEN);
-    #endif
+    // set matrix off
+    rgblight_setrgb(0,0,0);
     #endif //RGB_matrix  
 }
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
+        rgblight_setrgb_at(0,0,0, STATUS_LED); // reset status when we change layers. 
+
     switch (layer) {
         case 0:
             #ifdef RGBLIGHT_COLOR_LAYER_0
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_0, LAYER_LED);
             #else
                 #ifdef RGBLIGHT_ENABLE
-                    rgblight_init();
+                   
+                  rgblight_setrgb_at(0,0,0,STATUS_LED);
+                  rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_0,LAYER_LED);
                 #endif
             #endif
             break;
 
         case 1:
             #ifdef RGBLIGHT_COLOR_LAYER_1
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_1, LAYER_LED);
             #endif
             break;
 
         case 2: // symbol
             #ifdef RGBLIGHT_COLOR_LAYER_2
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_2, LAYER_LED);
             #endif
             break;
 
         case 3: // move
             #ifdef RGBLIGHT_COLOR_LAYER_3
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_3, LAYER_LED);
             #endif
             #ifdef USE_BABLPASTE
                 babble_led_user(); // poke led to update
@@ -290,13 +292,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
         case 4: //delmove ideally we'd turn on a red pixel in addition to the layer indicator. 
             #ifdef RGBLIGHT_COLOR_LAYER_4
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_4, LAYER_LED);
             #endif
             break;
 
         case 5:
             #ifdef RGBLIGHT_COLOR_LAYER_5
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_5, LAYER_LED);
             #endif
             break;
 
@@ -345,14 +347,14 @@ void virtser_recv(uint8_t serIn) {
             virtser_send('|');
 
             if (ser_got_RGBbytes==3) {
-                rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+                rgblight_setrgb_at( rgb_r[0], rgb_r[1], rgb_r[2], STATUS_LED);
             }
 
             if (ser_got_RGBbytes ==4) {
                 if (( rgb_r[3] >=0)  && (rgb_r[3] <= RGBLED_NUM) ) { // is pos1 plausible
                     rgblight_setrgb_at ( rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3]);
                 } else {
-                        rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+                        rgblight_setrgb_at( rgb_r[0], rgb_r[1], rgb_r[2], STATUS_LED);
                 }
             }
 
@@ -361,7 +363,7 @@ void virtser_recv(uint8_t serIn) {
                  (rgb_r[3] >=0)  && (rgb_r[3] <= (RGBLED_NUM -1))  ) {
                     rgblight_setrgb_range(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3], rgb_r[4]);
                } else {
-                   rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+                   rgblight_setrgb_at( rgb_r[0], rgb_r[1], rgb_r[2],STATUS_LED);
                }
             }
         } else { // newline outside of command loop, or something that can be ignored. 
@@ -416,23 +418,23 @@ void virtser_recv(uint8_t serIn) {
                 break;
         
             case 'r': //red
-                rgblight_setrgb(RGB_RED);
+                rgblight_setrgb_at(RGB_RED,STATUS_LED);
                 break;
          
             case 'g': 
-                rgblight_setrgb(RGB_GREEN);
+                rgblight_setrgb_at(RGB_GREEN,STATUS_LED);
                 break;
    
             case 'b':  // color switch
-                rgblight_setrgb(RGB_BLUE);
+                rgblight_setrgb_at(RGB_BLUE,STATUS_LED);
                 break;
 
             case 'w':  // color switch
-                rgblight_setrgb(RGB_WHITE);
+                rgblight_setrgb_at(RGB_WHITE,STATUS_LED);
                 break;
 
             case 'o':  // color black/off
-                rgblight_setrgb(0,0,0);
+                rgblight_setrgb_at(0,0,0, STATUS_LED);
                 break;
                
             case 'T':  // toggle

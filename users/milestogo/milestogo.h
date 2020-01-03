@@ -124,8 +124,12 @@ enum userspace_custom_keycodes {
 
 
 // BabblePaste 
-#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, B_VI, _______
-#define ____________BABBLE_SWITCH_R________________       B_CROM, B_LINUX, B_WIN  , QWERTY,  COLEMAK
+#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, XXXXXXX, _______
+#define ____________BABBLE_SWITCH_R________________       XXXXXXX, B_LINUX, B_WIN  , QWERTY,  COLEMAK
+
+// full list 
+//#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, B_VI, _______
+// #define ____________BABBLE_SWITCH_R________________       B_CROM, B_LINUX, B_WIN  , QWERTY,  COLEMAK
 
 
 /////////MOVE  - Full size  keyboard version
@@ -155,9 +159,9 @@ enum userspace_custom_keycodes {
 
 // Move in a direction, deleting as we go, or do opposite of Mov layer action */
 /*    ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |  Esc   |        |Replace |MultiSel|PasteVal|  |     .  |LineStrt|   .    |  EOL   |    .   |
+ * 01 |  Esc   |        |Replace |MultiSel|PasteVal|  |     .  |DelStart|   .    | Del_EOL|    .   |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 02 |        | Do_Mov | Shift  | Redo   |Hsplit- |  | WrdLft | Left   |   .    | Right  | WrdRght|
+ * 02 |        | Do_Mov | Shift  | Redo   |Hsplit- |  |DWrdLft |Backspce|   .    | Del    |DWrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 03 |Vsplit- | Cut    | Copy   | Paste  |Paste   |  |  App-- | ZoomOut| NewWin | ZoomIn | App+   |
  *    `--------------------------------------------'  `--------------------------------------------'
@@ -213,7 +217,7 @@ enum userspace_custom_keycodes {
   
 #define _________________EXCEL_R1__________________       XXXXXXX,  KC_1, KC_2, KC_3, XXXXXXX
 #define _________________EXCEL_R2__________________       KC_ASTR,  KC_4, KC_5, KC_6, KC_MINS
-#define _________________EXCEL_R3__________________       KC_SLASH, KC_7, KC_8, KC_8, B_PASTE
+#define _________________EXCEL_R3__________________       KC_SLASH, KC_7, KC_8, KC_9, B_PASTE
 
 
 /* Based on BEKL 15 punctuation
