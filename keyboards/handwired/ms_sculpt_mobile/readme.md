@@ -32,31 +32,31 @@ Liteon model XUA
 | 6 | a  | s  | d  | q   | w   | e   | Up   | Left | Down | Right |      |        |      | Space | F1   | F2     | F3   | Tab |
 | 7 | F7 | F8 | F9 | F10 | F11 | F12 |      | f    | r    | t     | z    | x      | c    |       | v    | Enter  | Esc  |     |
 
-
 Liteon model XUW
 |   | A  | B  | C  | D   | E   | F   | G    | H    | I    | J     | K    | L      | M    | N     | O    | P      | Q    | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 |    |    |    |  b  |  n  |     |      |   /  | spc  | Right | Down |        | left | ralt  |      |        |      |     |
 | 1 | z  | x  |  c |  v  |  m  |  ,  |   .  |      | ent  |       |      |        |      |       | rsft | rCtl   |   fn |     |
 | 2 |ESC | s  | F4 |  g  |  h  |  F6 |      |   "  | f5   |       |      |        | up   | lalt  |      |        |      |     |
-| 3 | a  |    |  d |  f  |  j  |  k  |   l  |   ;  |   \  |       |      |        |      |       |      |        |      | LGUI|
+| 3 | a  |    |    |  f  |  j  |  k  |   l  |   ;  |   \  |       |      |        |      |       |      |        |      | LGUI|
 | 4 |tab | w  | f3 |  t  |  y  |  ]  |  F7  |   [  | Bspc |       |      |        |      |       | lsft |        |      |     |
-| 5 | q  |Caps|  e |  r  |  u  |  i  |   o  |   p  |      |       |      |        |      |       |      |        |      |     |
+| 5 | q  |caps|  e |  r  |  u  |  i  |   o  |   p  |      |       |      |        |      |       |      |        |      |     |
 | 6 | 1  | 2  |  3 |  4  |  7  |  8  |   9  |   0  | F10  | F12   |  F11 | PgUp   | mute | vol+  |      |        |      |     |
 | 7 | ~  | F1 | F2 |  5  |  6  |  =  |  F8  |   -  | F9   |       |  Del | PgDn   | home |       |      | lCtl   |      |     |
 
 
-iso Spanish keyboard liteon 29W, using UK ISO layout for ease in comparion. Basically same as XUW, with iso1 = <> , iso2=] 
-|   | A0 | B  | C2 | D   | E4  | F   | G6   | H    | I8   | J     | K10  | L      | M12  | N     | O14  | P      | Q16  | R   |
+iso Spanish keyboard liteon 29W (partial matrix until I fix ribbon cable)
+|   | A0 | B1 | C2 | D3  | E4  | F5  | G6   | H7   | I8   | J     | K10  | L      | M12  | N     | O14  | P      | Q16  | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
-| 0 |    |    |    |  B  | N   |     |      |  /   | SPC  |RIGHT  | DOWN |        | Left  | AltGr|      |        |      |     |
-| 1 |  Z |  X | C  |  V  | M   | ,   |   .  | ISO2 | ENTR |       |      |        |      |       |RSFT  | RCTL   |  FN  |     |
-| 2 | Esc| S  | F4 |  G  | H   | F6  |      |  ""  |  F5  |       |      |        |  Up  |  LAlt |      |        |      |     |
-| 3 | A  |ISO1| D  |  F  | J   |  K  |  L   |   ;  |      |       |      |        |      |       |      |        |      |LGUI |
-| 4 |Tab | W  | F3 |  T  | Y   |  ]  |  F7  |   [  | BACK |       |      |        |      |       |LSFT  |        |      |     |
-| 5 | Q  |Caps| E  |  R  | U   | I   |  O   |  P   |      |       |      |        |      |       |      |        |      |     |
-| 6 | 1  | 2  | 3  |  4  | 7   | 8   |  9   |  0   |  F10 |   F12 | F11  |  PGDN  | End  |PrntScn|      |        |      |     |
-| 7 |Grve| F1 | F2 |  5  | 6   | =   |  F8  |  -   |  F9  |       | DEL  | PGUP   | Home |       |      | LCTL   |      |     |
+| 0 |    |    |    |     |     |     |      |      |      |       |      |        |      |       |      |        |      |     |
+| 1 |    |Down|Rght|Spc  | m   | n   |      | b    |      |       |      |        |      | Left  |AltGr |        |      |     |
+| 2 |    |    |    |     | p   | u   | q    |  r   |  e   | Caps  |      |        |      |       |      |        |      |     |
+| 3 |    |    |    |     |     |     |      |      |      |       |      |   9    |      |       |      |        |      |     |
+| 4 |    |    |    |Enter| ]   |     |      |  v   |  c   |  x    |  z   |        |      |       |      | Rsft   |      |     |
+| 5 |    |    |    | F5  | [   | h   | esc  |  g   |  F4  |  s    |      |        |      |  Up   |Lalt  |        |      |     |
+| 6 |    |    |    |     | ~n  | j   |  a   |  f   |  d   |  <>   |      |        |      |       |      |        |      |     |
+| 7 |    |    |    |Ban  | "   |     |      |      |      |       |      |        |      |       |      | Lsft   |      |     |
+---
 
 
 My method for discovering the matrix was to set up a keymap that has all printable symbols
@@ -65,7 +65,7 @@ in all rows. Load the matrix keymap, start hid_listen, fill in the blanks.
 Huge thanks to the bluepill controller work of [FPazos](https://github.com/fpazos), and the original [KC64 of Xydane](https://github.com/Xydane/qmk_firmware). I've shamelessly copied from their work. 
 
 
-Building
+Building 
 
 Make examples for this keyboard (after setting up your build environment):
 
