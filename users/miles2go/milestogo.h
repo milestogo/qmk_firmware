@@ -122,8 +122,9 @@ enum userspace_custom_keycodes {
 
 
 // BabblePaste 
-#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, B_VI, _______
+#define ____________BABBLE_SWITCH_L________________       B_MAC , B_READ , B_LINUX, _______, _______
 #define ____________BABBLE_SWITCH_R________________       B_CROM, B_LINUX, B_WIN  , QWERTY,  COLEMAK
+
 
 
 /////////MOVE  - Full size  keyboard version
@@ -138,6 +139,7 @@ enum userspace_custom_keycodes {
  * 03 |Vspli+  | Cut    | Copy   | Paste  | Paste  |  | WinPrv | Tab--  | NewTab | Tab++  | WinNxt |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
+
 /* Movement layer  similar to Extend, but fully enriched with babblepaste */
 #define ____________BABBLE_MOV_LNUM________________     B_LOCK, B_PAPP,   B_NAPP,   B_PASTV,    XXXX    
 
@@ -170,7 +172,7 @@ enum userspace_custom_keycodes {
 
 /* SYM  / excel / programming logic +=1 optimization*/
 /*    ,----------------------------------.  ,----------------------------------.
- * 01 |      |   [  |  ]   |  {   |  }   |  |  {   |  }   | (    | )    |      |
+ * 01 |      |   (  |  )   |  {   |  }   |  |  {   |  }   | [    | ]    |      |
  *    |------+------+------+------+------|  |------+------+------+------+------|
  * 02 |  ^   |   !  |  =   |   0  | $    |  |   #  |  1   | -    |  +   |  `   |
  *    |------+------+------+------+------|  |------+------+------+------+------|
@@ -184,33 +186,53 @@ enum userspace_custom_keycodes {
  ~/ is an outwards roll. / .* is a roll. !=0 is a roll , ++1 --1 roll. 
  _ is hard to get to. 
  */
-#define ___________________SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR
+#define ___________________SYM_L1__________________       XXXXXXX, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR
 #define ___________________SYM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
 #define ___________________SYM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
   
-#define ___________________SYM_R1__________________       KC_LCBR,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
+#define ___________________SYM_R1__________________       KC_LCBR,  KC_RCBR, KC_LBRC, KC_RBRC, XXXXXXX
 #define ___________________SYM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define ___________________SYM_R3__________________       KC_ASTR,  KC_AMPR, KC_TILDE,KC_DOT,  KC_SLASH
 
 
 // Move and brackets - 40% optimization. 
+// if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving) 
+// for thumb key, it may help to swap. 
+// The right paren depends entirely on the keyboard. 
 /*    ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |  QWERTY| {      |  Find  | }      | Blight-|  | Blight+|LineStrt|   Up   |  EOL   |  CDH   |
+ * 01 |  ESC   |  (     |  )     |   {    |   }    |  | }      |LineStrt|   Up   |  EOL   |        |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 02 |   [    |  (     |  Undo  |   )    |   ]    |  | WrdLft | Left   | Down   | Right  | WrdRght|
+ * 02 |   [    |DELmove | Shift  |  Undo  |   ]    |  | WrdLft | Left   | Down   | Right  | WrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 03 |        | Cut    | Copy   | Paste  | Paste  |  | Linux  | Tab--  | NewTab | Tab++  |  MAC   |
+ * 03 |    Undo| Cut    | Copy   | Paste  | Paste  |  | babl-- | Tab--  | NewTab | Tab++  | babl++ |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
 
-#define __________40_______MOV_L1__________________      KC_QWERTY, KC_LCBR,  B_FIND,  KC_RCBR, BL_DEC
-#define __________40_______MOV_L2__________________      KC_LBRC,KC_LPRN,B_UNDO, KC_RPRN, KC_RBRC
-#define __________40_______MOV_L3__________________      B_MODE, B_CUT,  B_COPY,  B_PASTE, B_PASTE
+#define __________40_______MOV_L1__________________      KC_ESC,    KC_LPRN,    KC_RPRN,  KC_RCBR, KC_RCBR
+#define __________40_______MOV_L2__________________      KC_LBRC,   MO(_DMOV),KC_LSFT, B_UNDO, KC_RBRC
+#define __________40_______MOV_L3__________________      B_UNDO,    B_CUT,  B_COPY,  B_PASTE, B_PASTE
 
-#define __________40_______MOV_R1__________________       BL_INC ,  B_GSOL,   B_UP,    B_GEOL,   KC_CDH
-#define __________40_______MOV_R2__________________       B_L1W,   B_L1C,    B_DOWN,  B_R1C,   B_R1W
-#define __________40_______MOV_R3__________________       B_LINUX,  B_PTAB,   B_NTAB,  B_NXTB,  B_MAC
+#define __________40_______MOV_R1__________________       KC_RPRN,  B_GSOL,   B_UP,    B_GEOL,   KC_CDH
+#define __________40_______MOV_R2__________________       B_L1W,    B_L1C,    B_DOWN,  B_R1C,   B_R1W
+#define __________40_______MOV_R3__________________       B_DEC,    B_PTAB,   B_NTAB,  B_NXTB,  B_INC
 
+
+// Move in a direction, deleting as we go, or do opposite of Mov layer action 
+/*    ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 |  Esc   |        | B_print|                 |  |     .  |LineStrt|   .    |  EOL   |    .   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 |        | Do_DEL | Shift  | Redo   |        |  | WrdLft | Left   |   .    | Right  | WrdRght|
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 |        | Cut    | Copy   | Paste  |Paste   |  |  App-- | ZoomOut| NewWin | ZoomIn | App+   |
+ *    `--------------------------------------------'  `--------------------------------------------'
+ */ 
+#define ____________40__DELMOV_L1__________________       KC_ESC,  XXXXXXX, B_MODE, XXXXXXX,  XXXXXXX
+#define ____________40__DELMOV_L2__________________       XXXXXXX, _______, _______,  B_REDO,  XXXXXXX
+#define ____________40__DELMOV_L3__________________       XXXXXXX, _______, _______,  _______, _______
+
+#define ____________40__DELMOV_R1__________________       XXXXXXX, B_DSOL,  _______, B_DEOL,  XXXXXXX
+#define ____________40__DELMOV_R2__________________       B_DLW,   KC_BSPC, _______, B_DEL,  B_DRW 
+#define ____________40__DELMOV_R3__________________       B_NAPP,   B_ZOUT, B_WINN,   B_ZIN, B_PAPP
 
 
 /* NUM  +  symbol / programming logic +=1 optimization*/
@@ -219,7 +241,7 @@ enum userspace_custom_keycodes {
  *    |------+------+------+------+------|  |------+------+------+------+------|
  * 02 |  ^   |   !  |  =   |   0  | $    |  |   #  |  1   | -    |  +   |  `   |
  *    |------+------+------+------+------|  |------+------+------+------+------|
- * 03 |  \   |   %  |   @  |  |   |  _   |  |   *  |  &   |  ~   |  .   |  /   |
+ * 03 |  \   |   %  |   @  |  |   |  _   |  |   &  |  *   |  ~   |  .   |  /   |
  *    `----------------------------------'  `----------------------------------'
  Memnonics
  ^begining end$ .   &&/|| on strong finger.  #at start of line.  
@@ -229,13 +251,13 @@ enum userspace_custom_keycodes {
  */
 
 
-#define __________40_______NUM_L1__________________       ________________NUMBER_LEFT________________
-#define __________40_______NUM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
-#define __________40_______NUM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
+#define __________40___SYM_NUM_L1__________________       ________________NUMBER_LEFT________________
+#define __________40___SYM_NUM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
+#define __________40___SYM_NUM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
   
-#define __________40_______NUM_R1__________________       ________________NUMBER_RIGHT_______________
-#define __________40_______NUM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
-#define __________40_______NUM_R3__________________       KC_ASTR,  KC_AMPR, KC_TILDE,KC_DOT,  KC_SLASH
+#define __________40___SYM_NUM_R1__________________       ________________NUMBER_RIGHT_______________
+#define __________40___SYM_NUM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
+#define __________40___SYM_NUM_R3__________________       KC_AMPR, KC_ASTR, KC_TILDE,KC_DOT,  KC_SLASH
  
 
  
