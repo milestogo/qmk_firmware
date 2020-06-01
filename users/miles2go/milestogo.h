@@ -200,7 +200,7 @@ enum userspace_custom_keycodes {
 // for thumb key, it may help to swap. 
 // The right paren depends entirely on the keyboard. 
 /*    ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |  ESC   |  (     |  )     |   {    |   }    |  | }      |LineStrt|   Up   |  EOL   |        |
+ * 01 |  ESC   |  (     |  )     |   {    |   }    |  | }      |LineStrt|   Up   |  EOL   | PGUP   |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 02 |   [    |DELmove | Shift  |  Undo  |   ]    |  | WrdLft | Left   | Down   | Right  | WrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
@@ -212,27 +212,27 @@ enum userspace_custom_keycodes {
 #define __________40_______MOV_L2__________________      KC_LBRC,   MO(_DMOV),KC_LSFT, B_UNDO, KC_RBRC
 #define __________40_______MOV_L3__________________      B_UNDO,    B_CUT,  B_COPY,  B_PASTE, B_PASTE
 
-#define __________40_______MOV_R1__________________       KC_RPRN,  B_GSOL,   B_UP,    B_GEOL,   KC_CDH
+#define __________40_______MOV_R1__________________       KC_RPRN,  B_GSOL,   B_UP,    B_GEOL,  B_PGUP
 #define __________40_______MOV_R2__________________       B_L1W,    B_L1C,    B_DOWN,  B_R1C,   B_R1W
 #define __________40_______MOV_R3__________________       B_DEC,    B_PTAB,   B_NTAB,  B_NXTB,  B_INC
 
 
 // Move in a direction, deleting as we go, or do opposite of Mov layer action 
 /*    ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |  Esc   |        | B_print|                 |  |     .  |LineStrt|   .    |  EOL   |    .   |
+ * 01 |  Esc   |        | B_print|        |        |  | Zoom-- |LineStrt|   .    |  EOL   |  Zoom++|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 02 |        | Do_DEL | Shift  | Redo   |        |  | WrdLft | Left   |   .    | Right  | WrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 03 |        | Cut    | Copy   | Paste  |Paste   |  |  App-- | ZoomOut| NewWin | ZoomIn | App+   |
+ * 03 |        | Cut    | Copy   | Paste  |Paste   |  | WIN-- |PrvFrame| Split  |nxtFrame| Win++  |
  *    `--------------------------------------------'  `--------------------------------------------'
  */ 
 #define ____________40__DELMOV_L1__________________       KC_ESC,  XXXXXXX, B_MODE, XXXXXXX,  XXXXXXX
 #define ____________40__DELMOV_L2__________________       XXXXXXX, _______, _______,  B_REDO,  XXXXXXX
 #define ____________40__DELMOV_L3__________________       XXXXXXX, _______, _______,  _______, _______
 
-#define ____________40__DELMOV_R1__________________       XXXXXXX, B_DSOL,  _______, B_DEOL,  XXXXXXX
+#define ____________40__DELMOV_R1__________________       B_ZOUT,  B_DSOL,  _______, B_DEOL, B_ZIN
 #define ____________40__DELMOV_R2__________________       B_DLW,   KC_BSPC, _______, B_DEL,  B_DRW 
-#define ____________40__DELMOV_R3__________________       B_NAPP,   B_ZOUT, B_WINN,   B_ZIN, B_PAPP
+#define ____________40__DELMOV_R3__________________       B_PWIN,  B_PRVFM, B_VSPLIT, B_NXTFM, B_NWIN
 
 
 /* NUM  +  symbol / programming logic +=1 optimization*/

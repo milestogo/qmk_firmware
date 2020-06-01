@@ -143,8 +143,13 @@ See the full list in babblePaste.h, or the list below
   #define B_RUNAPP    BABL_RUNAPP
   #define B_NAPP  BABL_SWITCH_APP_NEXT
   #define B_PAPP  BABL_SWITCH_APP_LAST // previous
+  #define B_NWIN  BABL_WINDOW_NEXT
+  #define B_PWIN  BABL_WINDOW_PREV
+  #define B_WINN  BABL_WINDOW_NEW
   #define B_CAPP  BABL_CLOSE_APP
   #define B_HELP  BABL_HELP
+  #define B_SCAP BABL_SCREENCAPTURE
+  #define B_KEYB BABL_SWITCH_KEYBOARD_LAYOUT
 
   #define B_NTAB  BABL_BROWSER_NEW_TAB
   #define B_CTAB  BABL_BROWSER_CLOSE_TAB
@@ -159,7 +164,7 @@ See the full list in babblePaste.h, or the list below
   #define B_BDEV  BABL_BROWSER_DEV_TOOLS // hard one to remember
   #define B_BRLD  BABL_BROWSER_RELOAD
   #define B_BFULL BABL_BROWSER_FULLSCREEN
-  #define B_ZIN    BABL_BROWSER_ZOOM_IN
+  #define B_ZIN   BABL_BROWSER_ZOOM_IN
   #define B_ZOUT  BABL_BROWSER_ZOOM_OUT
 
   #define B_PASTV BABL_APP_PASTE_VALUES

@@ -196,7 +196,16 @@ if (keycode == BABL_MODE_DECREMENT) {
         babblePaste_readmux(keycode);
     }
 #    endif
-
+#    ifdef BABL_KITTY
+    if (keycode == BABL_DO_KITTY) {
+        set_babble_mode(BABL_KITTY_MODE);
+        babble_modeswitch_kb(babble_mode);
+        return true;
+    }
+    if (babble_mode == BABL_KITTY_MODE) {
+        babblePaste_kitty(keycode);
+    }
+#    endif
     return false;
 }
 

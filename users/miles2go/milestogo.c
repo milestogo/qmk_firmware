@@ -112,6 +112,11 @@ void babble_modeswitch_user(uint8_t bmode) {
         rgblight_setrgb_at(RGBLIGHT_COLOR_LINUX, BABL_LED_INDEX);
     }
 #        endif
+#        ifdef BABL_KITTY
+    if (BABL_KITTY_MODE == bmode) {
+        rgblight_setrgb_at(RGBLIGHT_COLOR_KITTY, BABL_LED_INDEX);
+    }
+#        endif
 
 #    else  // BABL_LED_INDEX is  undefined, set all LEDS to one color. 
 
@@ -148,6 +153,11 @@ void babble_modeswitch_user(uint8_t bmode) {
 #        ifdef BABL_LINUX
     if (BABL_LINUX_MODE == bmode) {
         rgblight_setrgb(RGBLIGHT_COLOR_LINUX);
+    }
+#        endif
+#        ifdef BABL_KITTY
+    if (BABL_KITTY_MODE == bmode) {
+        rgblight_setrgb(RGBLIGHT_COLOR_KITTY);
     }
 #        endif
 #    endif // BABL_LED_INDEX

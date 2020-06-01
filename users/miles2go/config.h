@@ -50,7 +50,8 @@
 #define BABL_MAC
 #define BABL_LINUX
 //#define BABL_EMACS
-#define BABL_CHROMEOS
+//#define BABL_CHROMEOS
+#define BABL_KITTY
 
 #define RGBLIGHT_COLOR_MS 0x00, 0x27, 0x88 // light blue
 #define RGBLIGHT_COLOR_MAC 0x30,0x30,0x30 // grey
@@ -59,3 +60,4 @@
 #define RGBLIGHT_COLOR_VI 0x00,0x90,0x00
 #define RGBLIGHT_COLOR_READMUX 0x13,0x60,0x13 // green screen
 #define RGBLIGHT_COLOR_CHROMEOS 0xa4,0x82,0xd // google yellows
+#define RGBLIGHT_COLOR_KITTY 0x20,0x40,0x90 

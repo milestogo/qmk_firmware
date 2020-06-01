@@ -41,6 +41,9 @@ enum babble_modes {
 #    endif
 #    ifdef BABL_LINUX
     BABL_LINUX_MODE,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_KITTY_MODE,
 #    endif  
     BABL_MODEMAX
 };
@@ -213,6 +216,9 @@ enum babble_keycodes {
 #    ifdef BABL_CHROMEOS
     BABL_DO_CHROMEOS,
 #    endif
+#    ifdef BABL_KITTY
+    BABL_DO_KITTY,
+#    endif
     BABBLE_END_RANGE
 };
 
@@ -249,7 +255,10 @@ bool babblePaste_readmux(uint16_t keycode);
 #        define B_CROM BABL_DO_CHROMEOS
 bool babblePaste_chromeos(uint16_t keycode);
 #    endif
-
+#    ifdef BABL_KITTY
+#        define B_CROM BABL_DO_KITTY
+bool babblePaste_kitty(uint16_t keycode);
+#    endif
 
 /****************************************************
 **    All keyboard macros for Babble Actions

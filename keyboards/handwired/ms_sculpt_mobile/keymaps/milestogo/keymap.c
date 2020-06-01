@@ -18,16 +18,6 @@
 #define TT_SYM MO(_SYM)
 #define TT_MOV LT(_MOV, KC_BSPC)
 #define TT_NUM MO(_NUM)
-#define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
-#define SSYM LT(_SYM, KC_SPC)
-#define MVTAB LT(_MOV, KC_TAB)
-#define BKSYM LT(_SYM, KC_BSPC)
-#define MV2 LT(MOV, KC_2)
-#define MV3 LT(MOV, KC_3)
-#define MV4 LT(MOV, KC_4)
-#define MV8 LT(MOV, KC_8)
-#define MV9 LT(MOV, KC_9)
-#define MV0 LT(MOV, KC_0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  QWERTY
